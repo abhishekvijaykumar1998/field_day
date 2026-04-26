@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Field Day 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --red: #e63946;
+      --blue: #457b9d;
+      --green: #2d6a4f;
+      --black: #1a1a1a;
+      --white: #f1faee;
+      --grey: #8d99ae;
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --card: #1e1e1e;
+      --text: #f0ede8;
+      --muted: #888;
+      --accent: #f4c430;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(230,57,70,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 30%, rgba(69,123,157,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 80%, rgba(244,196,48,0.08) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .hero-stripes {
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.012) 40px,
+        rgba(255,255,255,0.012) 80px
+      );
+      z-index: 0;
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.2s;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 15vw, 14rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.4s;
+    }
+
+    .hero-title span {
+      display: block;
+      color: var(--accent);
+    }
+
+    .hero-meta {
+      margin-top: 2rem;
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.7s;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .hero-meta-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-meta-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .hero-divider {
+      width: 2px;
+      background: rgba(255,255,255,0.1);
+      align-self: stretch;
+    }
+
+    .hero-meta-link {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      transition: opacity 0.2s;
+    }
+    .hero-meta-link:hover { opacity: 0.75; }
+    .hero-meta-address {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 1.2s;
+    }
+
+    .scroll-arrow {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 1.5s ease-in-out infinite;
+    }
+
+    /* ── SECTION ── */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1;
+      margin-bottom: 3rem;
+      color: var(--text);
+    }
+
+    /* ── TEAMS ── */
+    .teams-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .team-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .team-color-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .team-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .team-members {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .team-members li {
+      font-size: 0.9rem;
+      color: rgba(240,237,232,0.75);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .team-members li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ── EVENTS GRID ── */
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .event-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(244,196,48,0.04), transparent);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .event-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(244,196,48,0.3);
+      background: #222;
+    }
+
+    .event-card:hover::after { opacity: 1; }
+
+    .event-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      line-height: 1;
+      color: rgba(244,196,48,0.15);
+      margin-bottom: 0.5rem;
+    }
+
+    .event-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .event-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(244,196,48,0.1);
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .event-tag.team {
+      background: rgba(69,123,157,0.15);
+      color: #7ab5d4;
+    }
+
+    .event-preview {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .event-click-hint {
+      margin-top: 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(244,196,48,0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .event-click-hint::before {
+      content: '→';
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 560px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.25s ease;
+      position: relative;
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      color: var(--text);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover { background: rgba(255,255,255,0.12); }
+
+    .modal-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .modal-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(244,196,48,0.1);
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-tag.team {
+      background: rgba(69,123,157,0.15);
+      color: #7ab5d4;
+    }
+
+    .modal-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin-bottom: 1.5rem;
+    }
+
+    .rules-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .rules-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .rules-list li {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: rgba(240,237,232,0.85);
+    }
+
+    .rules-list li .rule-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      color: var(--accent);
+      min-width: 1.2rem;
+      line-height: 1.4;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.1); }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ── BRACKET ── */
+    .bracket-btn {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 0.75rem 2rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .bracket-btn:hover { opacity: 0.85; transform: translateY(-2px); }
+
+    .bracket-rounds {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .bracket-round {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      min-width: 180px;
+    }
+
+    .bracket-round-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .bracket-match {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .bracket-team {
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.15s, border-color 0.15s, transform 0.15s;
+      color: var(--tc, var(--text));
+      border-left: 3px solid var(--tc, rgba(255,255,255,0.1));
+    }
+
+    .bracket-team:hover { background: rgba(255,255,255,0.05); transform: translateX(2px); }
+    .bracket-team.winner { background: rgba(244,196,48,0.1); border-color: var(--accent); }
+    .bracket-team.loser { opacity: 0.35; text-decoration: line-through; cursor: default; }
+    .bracket-team.loser:hover { transform: none; background: transparent; }
+
+    .bracket-vs {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: 0.1em;
+    }
+
+    .bracket-winner-label {
+      font-size: 0.72rem;
+      color: var(--accent);
+      margin-top: 0.25rem;
+      font-weight: 600;
+    }
+
+    .bracket-tap-hint {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      letter-spacing: 0.1em;
+    }
+
+    .bracket-champion {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin-top: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stripes"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">🏆 You're invited</div>
+    <h1 class="hero-title">
+      Field<span>Day</span>2026
+    </h1>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Date</span>
+        <span class="hero-meta-value">Saturday, May 16th</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Time</span>
+        <span class="hero-meta-value">6:30 PM</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Players</span>
+        <span class="hero-meta-value">18 Athletes</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Teams</span>
+        <span class="hero-meta-value">6 Teams of 3</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Location</span>
+        <a href="#" onclick="openMaps(event)" class="hero-meta-link">
+          <span class="hero-meta-value">Marianne Williams Park</span>
+          <span class="hero-meta-address">3451 E Barber Valley Dr, Boise, ID</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    Scroll
+  </div>
+</div>
+
+<!-- TEAMS -->
+<section>
+  <div class="section-label">The Lineup</div>
+  <h2 class="section-title">Teams</h2>
+  <div class="teams-grid">
+
+    <div class="team-card">
+      <div class="team-color-bar" style="background:#e63946;"></div>
+      <div class="team-name" style="color:#e63946;">Red</div>
+      <ul class="team-members">
+        <li>Zach</li><li>Anita</li><li>Kayla</li>
+      </ul>
+    </div>
+
+    <div class="team-card">
+      <div class="team-color-bar" style="background:#457b9d;"></div>
+      <div class="team-name" style="color:#7ab5d4;">Blue</div>
+      <ul class="team-members">
+        <li>Michael</li><li>Kenzie</li><li>Anika</li>
+      </ul>
+    </div>
+
+    <div class="team-card">
+      <div class="team-color-bar" style="background:#2d6a4f;"></div>
+      <div class="team-name" style="color:#52b788;">Green</div>
+      <ul class="team-members">
+        <li>Ashley</li><li>Coen</li><li>Xavier</li>
+      </ul>
+    </div>
+
+    <div class="team-card">
+      <div class="team-color-bar" style="background:#555;"></div>
+      <div class="team-name" style="color:#aaa;">Black</div>
+      <ul class="team-members">
+        <li>Jimmy</li><li>Leah</li><li>Devin</li>
+      </ul>
+    </div>
+
+    <div class="team-card">
+      <div class="team-color-bar" style="background:#f1faee;"></div>
+      <div class="team-name" style="color:#f1faee;">White</div>
+      <ul class="team-members">
+        <li>Abhi</li><li>Nick</li><li>Grant</li>
+      </ul>
+    </div>
+
+    <div class="team-card">
+      <div class="team-color-bar" style="background:#8d99ae;"></div>
+      <div class="team-name" style="color:#8d99ae;">Grey</div>
+      <ul class="team-members">
+        <li>Abby</li><li>Steven</li><li>Brianna</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section>
+  <div class="section-label">Click any event for rules</div>
+  <h2 class="section-title">Events</h2>
+  <div class="events-grid" id="events-grid"></div>
+</section>
+
+<!-- TUG OF WAR BRACKET -->
+<section>
+  <div class="section-label">Live Bracket</div>
+  <h2 class="section-title">Tug of War</h2>
+  <p style="color:var(--muted);margin-bottom:2rem;font-size:0.95rem;">Randomize the bracket, then tap the winning team after each match to advance them.</p>
+  <button class="bracket-btn" onclick="generateBracket()">🎲 Randomize Bracket</button>
+  <div id="bracket-container" style="margin-top:2rem;"></div>
+</section>
+
+<!-- PINS BRACKET -->
+<section>
+  <div class="section-label">Live Bracket</div>
+  <h2 class="section-title">Pins</h2>
+  <p style="color:var(--muted);margin-bottom:2rem;font-size:0.95rem;">Splits 6 teams into 2 simultaneous groups of 3. Each team takes a turn throwing. Tap knockouts to track scores, then group winners face off.</p>
+  <button class="bracket-btn" onclick="generatePinsBracket()">🎲 Randomize Groups</button>
+  <div id="pins-container" style="margin-top:2rem;"></div>
+</section>
+
+<footer>
+  Field Day 2026 &nbsp;·&nbsp; May 16th &nbsp;·&nbsp; 6:30 PM &nbsp;·&nbsp; Let's get it 🏆
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div class="modal-eyebrow" id="modal-eyebrow">Event Rules</div>
+    <h2 class="modal-title" id="modal-title"></h2>
+    <div id="modal-tag-wrap"></div>
+    <div class="modal-divider"></div>
+    <div class="rules-title">Rules</div>
+    <ul class="rules-list" id="modal-rules"></ul>
+  </div>
+</div>
+
+<script>
+  function openMaps(e) {
+    e.preventDefault();
+    const address = '3451+East+Barber+Valley+Drive,+Boise,+ID+83706';
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const url = isIOS
+      ? `https://maps.apple.com/?q=${address}`
+      : `https://maps.google.com/?q=${address}`;
+    window.open(url, '_blank');
+  }
+
+  const events = [
+    {
+      number: "01",
+      name: "Dasher",
+      type: "individual",
+      preview: "100m sprint — men's and women's heats. Pure speed wins.",
+      rules: [
+        "Two separate heats: one for men, one for women.",
+        "All runners start behind the starting line.",
+        "On the signal, sprint 100 meters to the finish line.",
+        "False start = warning. Second false start = disqualification.",
+        "Finishing placement earns points for your team."
+      ]
+    },
+    {
+      number: "02",
+      name: "Caterpillar",
+      type: "team",
+      preview: "Build a balloon chain with your teammates and race to the finish.",
+      rules: [
+        "2 teammates start at the start line with a balloon wedged between them (no hands).",
+        "They run to the opposite end to pick up their 3rd teammate and a new balloon.",
+        "The chain grows — all 3 now connected with 2 balloons between them.",
+        "The full chain of 3 races back to the finish line.",
+        "If any balloon drops at any point, the team is eliminated.",
+        "Fastest team to finish with the full chain intact wins."
+      ]
+    },
+    {
+      number: "03",
+      name: "Tater Sac",
+      type: "individual",
+      preview: "100m potato sac race. Hop your way to glory.",
+      rules: [
+        "Each player steps into a potato sac and holds it up at the waist.",
+        "On the signal, hop 100 meters to the finish line.",
+        "No crawling, rolling, or dragging — must stay upright and hopping.",
+        "If you fall, get back up and keep going.",
+        "First player across the finish line wins.",
+        "Finishing placement earns points for your team."
+      ]
+    },
+    {
+      number: "04",
+      name: "Mellow Side",
+      type: "team",
+      preview: "Spoon in mouth, marshmallow on top — shuffle sideways 100m without dropping.",
+      rules: [
+        "All 3 teammates hold hands and stand behind the starting line.",
+        "Each player holds a spoon in their mouth with a marshmallow balanced on top.",
+        "On the signal, the team shuffles sideways 100 meters to the finish line.",
+        "If any player's marshmallow falls, the entire team is eliminated.",
+        "No touching the spoon or marshmallow with hands at any time.",
+        "First team to cross the finish line with all marshmallows intact wins."
+      ]
+    },
+    {
+      number: "05",
+      name: "Juggle Train",
+      type: "individual",
+      preview: "Add a juggle move each round — drop the ball and you're out.",
+      rules: [
+        "All players stand in a circle.",
+        "One player starts with a juggle move — the ball MUST switch from one hand to the other (e.g. throw left hand, spin, catch right hand).",
+        "The next player repeats the full sequence and adds their own move.",
+        "The ball must NEVER touch the floor.",
+        "If a player drops the ball or breaks the sequence, they are eliminated.",
+        "The person to the left of the eliminated player restarts the sequence.",
+        "Last player remaining wins and earns max points for their team."
+      ]
+    },
+    {
+      number: "06",
+      name: "Jenga Smash",
+      type: "individual",
+      preview: "Knock down the tower. Stop fielders from rebuilding it. Fewest blocks standing wins.",
+      rules: [
+        "Set up a Jenga tower on a table. All other players stand in a circle around the table as fielders.",
+        "The thrower stands 5 feet behind the table.",
+        "The thrower has 2 balls and throws to knock the tower down.",
+        "Once the tower falls, fielders attempt to rebuild it.",
+        "The thrower can throw balls at fielders to eliminate them — a hit fielder is out and cannot rebuild.",
+        "Fielders may NOT block throws — only rebuild after the tower falls.",
+        "When time is called, count remaining un-stacked blocks.",
+        "Lowest block count wins. Each player takes a turn as thrower.",
+        "Finishing placement earns points for your team."
+      ]
+    },
+    {
+      number: "07",
+      name: "Tug of War",
+      type: "team",
+      preview: "Pull the other team across the line. Live bracket below.",
+      rules: [
+        "Two teams line up on opposite ends of a rope.",
+        "A marker sits at the center of the rope.",
+        "On the signal, both teams pull as hard as they can.",
+        "The team that pulls the center marker past their side's line wins the round.",
+        "Best of 3 pulls per matchup.",
+        "Use the bracket randomizer below to determine match order.",
+        "Winning team advances. Champion earns max points."
+      ]
+    },
+    {
+      number: "08",
+      name: "Pins",
+      type: "team",
+      preview: "Stand like bowling pins. One team throws to knock you out — hit below the knee only.",
+      rules: [
+        "6 teams split into 2 groups of 3. Both groups play simultaneously.",
+        "Within each group: 1 team throws, the other 2 teams are pins.",
+        "Pins must stand with both feet on the ground — like bowling pins. No moving.",
+        "Each thrower gets 1 throw. Must hit pins below the knee to knock them out.",
+        "A pin hit above the knee does NOT count — they stay in.",
+        "Knocked out pins leave the field.",
+        "Rotate until all 3 teams in the group have thrown.",
+        "Team with the most knockouts wins the group.",
+        "Group winners face off for the overall win."
+      ]
+    },
+    {
+      number: "09",
+      name: "Duck Duck Goose",
+      type: "individual",
+      optional: true,
+      preview: "Optional — if time permits. Classic circle chase game.",
+      rules: [
+        "Everyone sits in a circle.",
+        "One player is IT and walks around the outside of the circle.",
+        "IT taps players on the head saying 'Duck' each time.",
+        "When IT says 'Goose', the tapped player jumps up and chases IT.",
+        "IT must run around the full circle and sit in Goose's spot before being tagged.",
+        "If IT is tagged, they are IT again. If IT makes it, Goose becomes the new IT.",
+        "Finishing placement contributes points to your team."
+      ]
+    }
+  ];
+
+  const grid = document.getElementById('events-grid');
+
+  events.forEach((ev, i) => {
+    const card = document.createElement('div');
+    card.className = 'event-card';
+    card.innerHTML = `
+      <div class="event-number">${ev.number}</div>
+      <div class="event-name">${ev.name}${ev.optional ? ' <span style="font-size:0.6em;color:var(--muted);font-family:\'DM Sans\',sans-serif;letter-spacing:0.1em;">OPTIONAL</span>' : ''}</div>
+      <div class="event-tag ${ev.type === 'team' ? 'team' : ''}">${ev.type === 'team' ? '👥 Team Event' : '🏃 Individual'}</div>
+      <div class="event-preview">${ev.preview}</div>
+      <div class="event-click-hint">View Rules</div>
+    `;
+    card.addEventListener('click', () => openModal(ev));
+    grid.appendChild(card);
+  });
+
+  // ── TUG OF WAR BRACKET ──
+  const teams = ['Red', 'Blue', 'Green', 'Black', 'White', 'Grey'];
+  const teamColors = { Red:'#e63946', Blue:'#7ab5d4', Green:'#52b788', Black:'#aaa', White:'#f1faee', Grey:'#8d99ae' };
+  let bracket = [];
+  let results = {};
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function generateBracket() {
+    const shuffled = shuffle(teams);
+    bracket = [
+      [shuffled[0], shuffled[1]],
+      [shuffled[2], shuffled[3]],
+      [shuffled[4], shuffled[5]]
+    ];
+    results = {};
+    renderBracket();
+  }
+
+  function pickWinner(matchIdx, winner) {
+    results[matchIdx] = winner;
+    renderBracket();
+  }
+
+  function renderBracket() {
+    const container = document.getElementById('bracket-container');
+    const winners = [0,1,2].map(i => results[i] || null);
+    const allDone = winners.every(w => w !== null);
+
+    let html = `<div class="bracket-rounds">`;
+
+    // Round 1
+    html += `<div class="bracket-round"><div class="bracket-round-label">Round 1</div>`;
+    bracket.forEach((match, i) => {
+      const winner = results[i];
+      html += `<div class="bracket-match">
+        <div class="bracket-team ${winner === match[0] ? 'winner' : winner ? 'loser' : ''}" style="--tc:${teamColors[match[0]]}" onclick="pickWinner(${i},'${match[0]}')">${match[0]}</div>
+        <div class="bracket-vs">vs</div>
+        <div class="bracket-team ${winner === match[1] ? 'winner' : winner ? 'loser' : ''}" style="--tc:${teamColors[match[1]]}" onclick="pickWinner(${i},'${match[1]}')">${match[1]}</div>
+        ${winner ? `<div class="bracket-winner-label">✓ ${winner} advances</div>` : `<div class="bracket-tap-hint">Tap winner</div>`}
+      </div>`;
+    });
+    html += `</div>`;
+
+    // Semifinals
+    if (allDone) {
+      const semiFinals = [[winners[0], winners[1]], [winners[2], 'Bye']];
+      html += `<div class="bracket-round"><div class="bracket-round-label">Semis</div>`;
+      semiFinals.forEach((match, i) => {
+        const key = `semi_${i}`;
+        const winner = results[key];
+        if (match[1] === 'Bye') {
+          html += `<div class="bracket-match">
+            <div class="bracket-team winner" style="--tc:${teamColors[match[0]]}">${match[0]}</div>
+            <div class="bracket-winner-label">✓ ${match[0]} advances (bye)</div>
+          </div>`;
+          if (!results[key]) { results[key] = match[0]; renderBracket(); return; }
+        } else {
+          html += `<div class="bracket-match">
+            <div class="bracket-team ${winner === match[0] ? 'winner' : winner ? 'loser' : ''}" style="--tc:${teamColors[match[0]]}" onclick="pickWinner('${key}','${match[0]}')">${match[0]}</div>
+            <div class="bracket-vs">vs</div>
+            <div class="bracket-team ${winner === match[1] ? 'winner' : winner ? 'loser' : ''}" style="--tc:${teamColors[match[1]]}" onclick="pickWinner('${key}','${match[1]}')">${match[1]}</div>
+            ${winner ? `<div class="bracket-winner-label">✓ ${winner} advances</div>` : `<div class="bracket-tap-hint">Tap winner</div>`}
+          </div>`;
+        }
+      });
+      html += `</div>`;
+    }
+
+    // Final
+    const semiW0 = results['semi_0'];
+    const semiW1 = results['semi_1'];
+    if (semiW0 && semiW1) {
+      const finalWinner = results['final'];
+      html += `<div class="bracket-round"><div class="bracket-round-label">Final</div>
+        <div class="bracket-match">
+          <div class="bracket-team ${finalWinner === semiW0 ? 'winner' : finalWinner ? 'loser' : ''}" style="--tc:${teamColors[semiW0]}" onclick="pickWinner('final','${semiW0}')">${semiW0}</div>
+          <div class="bracket-vs">vs</div>
+          <div class="bracket-team ${finalWinner === semiW1 ? 'winner' : finalWinner ? 'loser' : ''}" style="--tc:${teamColors[semiW1]}" onclick="pickWinner('final','${semiW1}')">${semiW1}</div>
+          ${finalWinner ? `<div class="bracket-champion">🏆 ${finalWinner} wins Tug of War!</div>` : `<div class="bracket-tap-hint">Tap winner</div>`}
+        </div>
+      </div>`;
+    }
+
+    html += `</div>`;
+    container.innerHTML = html;
+  }
+
+  // ── PINS BRACKET ──
+  let pinsGroups = [];
+  let pinsScores = {}; // key: `g${groupIdx}_t${teamIdx}` -> knockout count
+  let pinsRound = {}; // which team is currently throwing per group
+  let pinsFinalResult = null;
+
+  function generatePinsBracket() {
+    const shuffled = shuffle(teams);
+    pinsGroups = [
+      [shuffled[0], shuffled[1], shuffled[2]],
+      [shuffled[3], shuffled[4], shuffled[5]]
+    ];
+    pinsScores = {};
+    pinsRound = { 0: 0, 1: 0 }; // which team index is throwing
+    pinsFinalResult = null;
+    renderPinsBracket();
+  }
+
+  function pinsAddKnockout(groupIdx, throwerIdx) {
+    const key = `g${groupIdx}_t${throwerIdx}`;
+    pinsScores[key] = (pinsScores[key] || 0) + 1;
+    renderPinsBracket();
+  }
+
+  function pinsRemoveKnockout(groupIdx, throwerIdx) {
+    const key = `g${groupIdx}_t${throwerIdx}`;
+    if (pinsScores[key] > 0) pinsScores[key]--;
+    renderPinsBracket();
+  }
+
+  function pinsSetThrower(groupIdx, teamIdx) {
+    pinsRound[groupIdx] = teamIdx;
+    renderPinsBracket();
+  }
+
+  function pinsPickFinalWinner(winner) {
+    pinsFinalResult = winner;
+    renderPinsBracket();
+  }
+
+  function getPinsGroupWinner(groupIdx) {
+    const group = pinsGroups[groupIdx];
+    let best = null, bestScore = -1;
+    group.forEach((team, ti) => {
+      const score = pinsScores[`g${groupIdx}_t${ti}`] || 0;
+      if (score > bestScore) { bestScore = score; best = team; }
+    });
+    // check for tie
+    const scores = group.map((_, ti) => pinsScores[`g${groupIdx}_t${ti}`] || 0);
+    const maxScore = Math.max(...scores);
+    const tied = scores.filter(s => s === maxScore).length > 1;
+    return tied ? null : best;
+  }
+
+  function allPinsRoundsDone(groupIdx) {
+    // all 3 teams have a score recorded (even 0 counts if explicitly set)
+    const group = pinsGroups[groupIdx];
+    return group.every((_, ti) => `g${groupIdx}_t${ti}` in pinsScores);
+  }
+
+  function renderPinsBracket() {
+    const container = document.getElementById('pins-container');
+    if (!pinsGroups.length) { container.innerHTML = ''; return; }
+
+    let html = `<div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-start;">`;
+
+    // Render each group
+    pinsGroups.forEach((group, gi) => {
+      html += `<div class="bracket-round"><div class="bracket-round-label">Group ${gi + 1}</div>`;
+      group.forEach((team, ti) => {
+        const key = `g${gi}_t${ti}`;
+        const score = pinsScores[key] || 0;
+        const isThrowing = pinsRound[gi] === ti;
+        const hasThrown = key in pinsScores;
+        const groupDone = allPinsRoundsDone(gi);
+        const winner = groupDone ? getPinsGroupWinner(gi) : null;
+        const isWinner = winner === team;
+        const isTied = groupDone && !winner;
+
+        html += `<div class="bracket-match" style="min-width:200px;">
+          <div class="bracket-team ${isWinner ? 'winner' : ''}" style="--tc:${teamColors[team]};display:flex;justify-content:space-between;align-items:center;cursor:default;">
+            <span>${team}</span>
+            <span style="font-size:1rem;font-weight:700;color:var(--accent)">${score} KO${score !== 1 ? 's' : ''}</span>
+          </div>
+          ${!groupDone ? `
+          <div style="display:flex;gap:0.5rem;margin-top:0.4rem;align-items:center;">
+            <button onclick="pinsSetThrower(${gi},${ti})" style="flex:1;padding:0.3rem 0.5rem;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:6px;border:1px solid ${isThrowing ? 'var(--accent)' : 'rgba(255,255,255,0.1)'};background:${isThrowing ? 'rgba(244,196,48,0.15)' : 'transparent'};color:${isThrowing ? 'var(--accent)' : 'var(--muted)'};cursor:pointer;">
+              ${isThrowing ? '🎯 Throwing' : 'Set Thrower'}
+            </button>
+            ${isThrowing ? `
+            <button onclick="pinsRemoveKnockout(${gi},${ti})" style="width:30px;height:30px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:var(--muted);cursor:pointer;font-size:1rem;">−</button>
+            <button onclick="pinsAddKnockout(${gi},${ti})" style="width:30px;height:30px;border-radius:6px;border:1px solid var(--accent);background:rgba(244,196,48,0.1);color:var(--accent);cursor:pointer;font-size:1rem;font-weight:700;">+</button>
+            ` : ''}
+          </div>` : ''}
+          ${isWinner ? `<div class="bracket-winner-label">✓ ${team} wins Group ${gi + 1}</div>` : ''}
+          ${isTied ? `<div style="font-size:0.72rem;color:#e63946;margin-top:0.4rem;">⚠️ Tie — replay needed</div>` : ''}
+        </div>`;
+      });
+
+      if (!allPinsRoundsDone(gi)) {
+        html += `<div style="margin-top:0.5rem;">
+          <button onclick="pinsMarkGroupDone(${gi})" style="width:100%;padding:0.4rem;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-radius:6px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:var(--muted);cursor:pointer;">
+            ✓ Lock in Group ${gi + 1} scores
+          </button>
+        </div>`;
+      }
+
+      html += `</div>`;
+    });
+
+    // Final — group winners face off
+    const w0 = getPinsGroupWinner(0);
+    const w1 = getPinsGroupWinner(1);
+    const g0done = allPinsRoundsDone(0);
+    const g1done = allPinsRoundsDone(1);
+
+    if (g0done && g1done && w0 && w1) {
+      html += `<div class="bracket-round"><div class="bracket-round-label">Final</div>
+        <div class="bracket-match" style="min-width:200px;">
+          <div class="bracket-team ${pinsFinalResult === w0 ? 'winner' : pinsFinalResult ? 'loser' : ''}" style="--tc:${teamColors[w0]}" onclick="pinsPickFinalWinner('${w0}')">${w0}</div>
+          <div class="bracket-vs">vs</div>
+          <div class="bracket-team ${pinsFinalResult === w1 ? 'winner' : pinsFinalResult ? 'loser' : ''}" style="--tc:${teamColors[w1]}" onclick="pinsPickFinalWinner('${w1}')">${w1}</div>
+          ${pinsFinalResult ? `<div class="bracket-champion">🏆 ${pinsFinalResult} wins Pins!</div>` : `<div class="bracket-tap-hint">Tap winner</div>`}
+        </div>
+      </div>`;
+    }
+
+    html += `</div>`;
+    container.innerHTML = html;
+  }
+
+  function pinsMarkGroupDone(groupIdx) {
+    const group = pinsGroups[groupIdx];
+    group.forEach((_, ti) => {
+      const key = `g${groupIdx}_t${ti}`;
+      if (!(key in pinsScores)) pinsScores[key] = 0;
+    });
+    renderPinsBracket();
+  }
+
+  function openModal(ev) {
+    document.getElementById('modal-title').textContent = ev.name;
+    document.getElementById('modal-eyebrow').textContent = `Event ${ev.number}`;
+    document.getElementById('modal-tag-wrap').innerHTML =
+      `<div class="modal-tag ${ev.type === 'team' ? 'team' : ''}" style="margin-bottom:1.5rem">${ev.type === 'team' ? '👥 Team Event' : '🏃 Individual'}</div>`;
+    const rulesList = document.getElementById('modal-rules');
+    rulesList.innerHTML = ev.rules.map((r, i) =>
+      `<li><span class="rule-num">${i + 1}</span><span>${r}</span></li>`
+    ).join('');
+    document.getElementById('modal-overlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModalDirect() {
+    document.getElementById('modal-overlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModalDirect();
+  });
+</script>
+</body>
+</html>
