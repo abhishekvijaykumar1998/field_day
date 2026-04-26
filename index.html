@@ -596,6 +596,49 @@
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+    /* ── MOBILE RESPONSIVE ── */
+    @media (max-width: 640px) {
+
+      /* Hero meta — hide dividers, wrap into 2x2 grid */
+      .hero-meta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem 1rem;
+        margin-top: 1.5rem;
+      }
+      .hero-divider { display: none; }
+      .hero-meta-item { align-items: flex-start; }
+
+      /* Section padding tighter on mobile */
+      section { padding: 3rem 1.25rem; }
+
+      /* Teams — single column on very small screens */
+      .teams-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+      /* Events — single column */
+      .events-grid { grid-template-columns: 1fr; }
+
+      /* Bracket — stack rounds vertically */
+      .bracket-rounds {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .bracket-round { min-width: unset; width: 100%; }
+      .bracket-match { min-width: unset !important; width: 100%; }
+
+      /* Bracket button full width */
+      .bracket-btn { width: 100%; }
+
+      /* Modal padding tighter */
+      .modal { padding: 1.5rem; }
+      .modal-title { font-size: 2rem; }
+    }
+
+    @media (max-width: 400px) {
+      /* Very small phones — single column teams */
+      .teams-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -760,25 +803,25 @@
       number: "01",
       name: "Dasher",
       type: "individual",
-      preview: "100m sprint - men's and women's heats.",
+      preview: "100m sprint — men's and women's heats. Pure speed wins.",
       rules: [
         "Two separate heats: one for men, one for women.",
         "All runners start behind the starting line.",
         "On the signal, sprint 100 meters to the finish line.",
-        "First false start = warning. Second false start = disqualification.",
-        "Winner earns individual points and adds points for their team."
+        "False start = warning. Second false start = disqualification.",
+        "Finishing placement earns points for your team."
       ]
     },
     {
       number: "02",
       name: "Caterpillar",
       type: "team",
-      preview: "Build a balloon chain with your teammates and race.",
+      preview: "Build a balloon chain with your teammates and race to the finish.",
       rules: [
-        "2 teammates start at the start line with a balloon wedged between them (no hands allowed).",
+        "2 teammates start at the start line with a balloon wedged between them (no hands).",
         "They run to the opposite end to pick up their 3rd teammate and a new balloon.",
         "The chain grows — all 3 now connected with 2 balloons between them.",
-        "The full chain of 3 races back.",
+        "The full chain of 3 races back to the finish line.",
         "If any balloon drops at any point, the team is eliminated.",
         "Fastest team to finish with the full chain intact wins."
       ]
@@ -787,21 +830,21 @@
       number: "03",
       name: "Tater Sac",
       type: "individual",
-      preview: "100m potato sac race.",
+      preview: "100m potato sac race. Hop your way to glory.",
       rules: [
         "Each player steps into a potato sac and holds it up at the waist.",
         "On the signal, hop 100 meters to the finish line.",
         "No crawling, rolling, or dragging — must stay upright and hopping.",
         "If you fall, get back up and keep going.",
         "First player across the finish line wins.",
-        "Winner earns individual points and adds points for their team."
+        "Finishing placement earns points for your team."
       ]
     },
     {
       number: "04",
-      name: "Mellow Shuffle",
+      name: "Mellow Side",
       type: "team",
-      preview: "Spoon in mouth, marshmallow on top — shuffle sideways for 100m without dropping.",
+      preview: "Spoon in mouth, marshmallow on top — shuffle sideways 100m without dropping.",
       rules: [
         "All 3 teammates hold hands and stand behind the starting line.",
         "Each player holds a spoon in their mouth with a marshmallow balanced on top.",
@@ -835,7 +878,7 @@
         "Set up a Jenga tower on a table. All other players stand in a circle around the table as fielders.",
         "The thrower stands 5 feet behind the table.",
         "The thrower has 2 balls and throws to knock the tower down.",
-        "Once the tower falls, fielders MUST attempt to rebuild it.",
+        "Once the tower falls, fielders attempt to rebuild it.",
         "The thrower can throw balls at fielders to eliminate them — a hit fielder is out and cannot rebuild.",
         "Fielders may NOT block throws — only rebuild after the tower falls.",
         "When time is called, count remaining un-stacked blocks.",
@@ -867,8 +910,7 @@
         "6 teams split into 2 groups of 3. Both groups play simultaneously.",
         "Within each group: 1 team throws, the other 2 teams are pins.",
         "Pins must stand with both feet on the ground — like bowling pins. No moving.",
-        "Each thrower gets 1 throw and can hit as many pins as possible.",
-        "Players MUST hit pins below the knee to knock them out.",
+        "Each thrower gets 1 throw. Must hit pins below the knee to knock them out.",
         "A pin hit above the knee does NOT count — they stay in.",
         "Knocked out pins leave the field.",
         "Rotate until all 3 teams in the group have thrown.",
@@ -889,6 +931,7 @@
         "When IT says 'Goose', the tapped player jumps up and chases IT.",
         "IT must run around the full circle and sit in Goose's spot before being tagged.",
         "If IT is tagged, they are IT again. If IT makes it, Goose becomes the new IT.",
+        "Finishing placement contributes points to your team."
       ]
     }
   ];
@@ -1006,8 +1049,7 @@
 
   // ── PINS BRACKET ──
   let pinsGroups = [];
-  let pinsScores = {}; // key: `g${groupIdx}_t${teamIdx}` -> knockout count
-  let pinsRound = {}; // which team is currently throwing per group
+  let pinsGroupWinners = {};
   let pinsFinalResult = null;
 
   function generatePinsBracket() {
@@ -1016,26 +1058,14 @@
       [shuffled[0], shuffled[1], shuffled[2]],
       [shuffled[3], shuffled[4], shuffled[5]]
     ];
-    pinsScores = {};
-    pinsRound = { 0: 0, 1: 0 }; // which team index is throwing
+    pinsGroupWinners = {};
     pinsFinalResult = null;
     renderPinsBracket();
   }
 
-  function pinsAddKnockout(groupIdx, throwerIdx) {
-    const key = `g${groupIdx}_t${throwerIdx}`;
-    pinsScores[key] = (pinsScores[key] || 0) + 1;
-    renderPinsBracket();
-  }
-
-  function pinsRemoveKnockout(groupIdx, throwerIdx) {
-    const key = `g${groupIdx}_t${throwerIdx}`;
-    if (pinsScores[key] > 0) pinsScores[key]--;
-    renderPinsBracket();
-  }
-
-  function pinsSetThrower(groupIdx, teamIdx) {
-    pinsRound[groupIdx] = teamIdx;
+  function pinsPickGroupWinner(groupIdx, winner) {
+    pinsGroupWinners[groupIdx] = winner;
+    pinsFinalResult = null;
     renderPinsBracket();
   }
 
@@ -1044,83 +1074,37 @@
     renderPinsBracket();
   }
 
-  function getPinsGroupWinner(groupIdx) {
-    const group = pinsGroups[groupIdx];
-    let best = null, bestScore = -1;
-    group.forEach((team, ti) => {
-      const score = pinsScores[`g${groupIdx}_t${ti}`] || 0;
-      if (score > bestScore) { bestScore = score; best = team; }
-    });
-    // check for tie
-    const scores = group.map((_, ti) => pinsScores[`g${groupIdx}_t${ti}`] || 0);
-    const maxScore = Math.max(...scores);
-    const tied = scores.filter(s => s === maxScore).length > 1;
-    return tied ? null : best;
-  }
-
-  function allPinsRoundsDone(groupIdx) {
-    // all 3 teams have a score recorded (even 0 counts if explicitly set)
-    const group = pinsGroups[groupIdx];
-    return group.every((_, ti) => `g${groupIdx}_t${ti}` in pinsScores);
-  }
-
   function renderPinsBracket() {
     const container = document.getElementById('pins-container');
     if (!pinsGroups.length) { container.innerHTML = ''; return; }
 
     let html = `<div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-start;">`;
 
-    // Render each group
     pinsGroups.forEach((group, gi) => {
-      html += `<div class="bracket-round"><div class="bracket-round-label">Group ${gi + 1}</div>`;
-      group.forEach((team, ti) => {
-        const key = `g${gi}_t${ti}`;
-        const score = pinsScores[key] || 0;
-        const isThrowing = pinsRound[gi] === ti;
-        const hasThrown = key in pinsScores;
-        const groupDone = allPinsRoundsDone(gi);
-        const winner = groupDone ? getPinsGroupWinner(gi) : null;
-        const isWinner = winner === team;
-        const isTied = groupDone && !winner;
+      const winner = pinsGroupWinners[gi];
+      html += `<div class="bracket-round">
+        <div class="bracket-round-label">Group ${gi + 1} — All throw, pick winner</div>`;
 
+      group.forEach((team, ti) => {
+        const isWinner = winner === team;
+        const isLoser = winner && winner !== team;
         html += `<div class="bracket-match" style="min-width:200px;">
-          <div class="bracket-team ${isWinner ? 'winner' : ''}" style="--tc:${teamColors[team]};display:flex;justify-content:space-between;align-items:center;cursor:default;">
-            <span>${team}</span>
-            <span style="font-size:1rem;font-weight:700;color:var(--accent)">${score} KO${score !== 1 ? 's' : ''}</span>
+          <div class="bracket-team ${isWinner ? 'winner' : isLoser ? 'loser' : ''}"
+            style="--tc:${teamColors[team]}"
+            onclick="pinsPickGroupWinner(${gi},'${team}')">
+            ${team}
           </div>
-          ${!groupDone ? `
-          <div style="display:flex;gap:0.5rem;margin-top:0.4rem;align-items:center;">
-            <button onclick="pinsSetThrower(${gi},${ti})" style="flex:1;padding:0.3rem 0.5rem;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:6px;border:1px solid ${isThrowing ? 'var(--accent)' : 'rgba(255,255,255,0.1)'};background:${isThrowing ? 'rgba(244,196,48,0.15)' : 'transparent'};color:${isThrowing ? 'var(--accent)' : 'var(--muted)'};cursor:pointer;">
-              ${isThrowing ? '🎯 Throwing' : 'Set Thrower'}
-            </button>
-            ${isThrowing ? `
-            <button onclick="pinsRemoveKnockout(${gi},${ti})" style="width:30px;height:30px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:var(--muted);cursor:pointer;font-size:1rem;">−</button>
-            <button onclick="pinsAddKnockout(${gi},${ti})" style="width:30px;height:30px;border-radius:6px;border:1px solid var(--accent);background:rgba(244,196,48,0.1);color:var(--accent);cursor:pointer;font-size:1rem;font-weight:700;">+</button>
-            ` : ''}
-          </div>` : ''}
-          ${isWinner ? `<div class="bracket-winner-label">✓ ${team} wins Group ${gi + 1}</div>` : ''}
-          ${isTied ? `<div style="font-size:0.72rem;color:#e63946;margin-top:0.4rem;">⚠️ Tie — replay needed</div>` : ''}
+          ${isWinner ? `<div class="bracket-winner-label">✓ ${team} wins Group ${gi + 1}</div>` : `<div class="bracket-tap-hint">Tap to pick winner</div>`}
         </div>`;
       });
-
-      if (!allPinsRoundsDone(gi)) {
-        html += `<div style="margin-top:0.5rem;">
-          <button onclick="pinsMarkGroupDone(${gi})" style="width:100%;padding:0.4rem;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-radius:6px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:var(--muted);cursor:pointer;">
-            ✓ Lock in Group ${gi + 1} scores
-          </button>
-        </div>`;
-      }
 
       html += `</div>`;
     });
 
-    // Final — group winners face off
-    const w0 = getPinsGroupWinner(0);
-    const w1 = getPinsGroupWinner(1);
-    const g0done = allPinsRoundsDone(0);
-    const g1done = allPinsRoundsDone(1);
-
-    if (g0done && g1done && w0 && w1) {
+    // Final
+    const w0 = pinsGroupWinners[0];
+    const w1 = pinsGroupWinners[1];
+    if (w0 && w1) {
       html += `<div class="bracket-round"><div class="bracket-round-label">Final</div>
         <div class="bracket-match" style="min-width:200px;">
           <div class="bracket-team ${pinsFinalResult === w0 ? 'winner' : pinsFinalResult ? 'loser' : ''}" style="--tc:${teamColors[w0]}" onclick="pinsPickFinalWinner('${w0}')">${w0}</div>
@@ -1133,15 +1117,6 @@
 
     html += `</div>`;
     container.innerHTML = html;
-  }
-
-  function pinsMarkGroupDone(groupIdx) {
-    const group = pinsGroups[groupIdx];
-    group.forEach((_, ti) => {
-      const key = `g${groupIdx}_t${ti}`;
-      if (!(key in pinsScores)) pinsScores[key] = 0;
-    });
-    renderPinsBracket();
   }
 
   function openModal(ev) {
