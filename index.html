@@ -614,6 +614,11 @@
       backdrop-filter: blur(12px);
     }
 
+    /* Hide toolbar on real mobile devices */
+    @media (max-width: 640px) {
+      .view-toolbar { display: none !important; }
+    }
+
     .view-btn {
       border: none;
       background: transparent;
