@@ -597,18 +597,117 @@
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 
+    /* ── VIEW TOGGLE TOOLBAR ── */
+    .view-toolbar {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 0.4rem;
+      display: flex;
+      gap: 0.25rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      backdrop-filter: blur(12px);
+    }
+
+    .view-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+    }
+
+    .view-btn.active {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .view-btn:not(.active):hover {
+      background: rgba(255,255,255,0.07);
+      color: var(--text);
+    }
+
+    /* ── MOBILE SIMULATOR ── */
+    .mobile-sim-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem 1rem 6rem;
+      background: #080808;
+      min-height: 100vh;
+    }
+
+    .mobile-sim-frame {
+      width: 390px;
+      height: 844px;
+      border-radius: 48px;
+      overflow: hidden;
+      border: 8px solid #2a2a2a;
+      box-shadow: 0 0 0 1px #444, 0 32px 80px rgba(0,0,0,0.8);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .mobile-sim-frame::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 120px; height: 28px;
+      background: #2a2a2a;
+      border-radius: 0 0 18px 18px;
+      z-index: 10;
+    }
+
+    .mobile-sim-frame iframe {
+      width: 390px;
+      height: 844px;
+      border: none;
+      display: block;
+    }
+
     /* ── MOBILE RESPONSIVE ── */
     @media (max-width: 640px) {
 
       /* Hero meta — hide dividers, wrap into 2x2 grid */
       .hero-meta {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.25rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
         margin-top: 1.5rem;
+        width: 100%;
       }
       .hero-divider { display: none; }
-      .hero-meta-item { align-items: flex-start; }
+      .hero-meta-item { align-items: center; text-align: center; }
+      .hero-meta-item:last-child { align-items: center; text-align: center; }
+      .hero-meta-value { font-size: 1rem; white-space: nowrap; }
+      .scroll-hint {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 2rem;
+        transform: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
       /* Section padding tighter on mobile */
       section { padding: 3rem 1.25rem; }
@@ -1144,6 +1243,73 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeModalDirect();
   });
+</script>
+<!-- VIEW TOGGLE TOOLBAR -->
+<div class="view-toolbar" id="view-toolbar">
+  <button class="view-btn active" id="btn-desktop" onclick="setView('desktop')">🖥 Desktop</button>
+  <button class="view-btn" id="btn-mobile" onclick="setView('mobile')">📱 Mobile</button>
+</div>
+
+<script>
+  function setView(mode) {
+    const body = document.body;
+    const btnDesktop = document.getElementById('btn-desktop');
+    const btnMobile = document.getElementById('btn-mobile');
+
+    if (mode === 'mobile') {
+      // Wrap body content in a mobile frame simulator
+      if (!document.getElementById('mobile-sim-wrapper')) {
+        const content = document.createElement('iframe');
+        content.src = window.location.href + '?sim=1';
+        content.id = 'mobile-sim-iframe';
+
+        const frame = document.createElement('div');
+        frame.className = 'mobile-sim-frame';
+        frame.appendChild(content);
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'mobile-sim-wrapper';
+        wrapper.id = 'mobile-sim-wrapper';
+        wrapper.appendChild(frame);
+
+        // Hide all direct body children except toolbar and wrapper
+        Array.from(body.children).forEach(el => {
+          if (!el.classList.contains('view-toolbar')) {
+            el.dataset.hiddenByView = '1';
+            el.style.display = 'none';
+          }
+        });
+
+        body.style.background = '#080808';
+        body.insertBefore(wrapper, document.getElementById('view-toolbar'));
+      }
+      btnMobile.classList.add('active');
+      btnDesktop.classList.remove('active');
+    } else {
+      // Restore desktop view
+      const wrapper = document.getElementById('mobile-sim-wrapper');
+      if (wrapper) wrapper.remove();
+
+      Array.from(body.children).forEach(el => {
+        if (el.dataset.hiddenByView) {
+          el.style.display = '';
+          delete el.dataset.hiddenByView;
+        }
+      });
+
+      body.style.background = '';
+      btnDesktop.classList.add('active');
+      btnMobile.classList.remove('active');
+    }
+  }
+
+  // If loaded inside the sim iframe, hide the toolbar
+  if (window.location.search.includes('sim=1')) {
+    window.addEventListener('DOMContentLoaded', () => {
+      const toolbar = document.getElementById('view-toolbar');
+      if (toolbar) toolbar.style.display = 'none';
+    });
+  }
 </script>
 </body>
 </html>
