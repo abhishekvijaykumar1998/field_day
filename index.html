@@ -199,6 +199,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
+      max-width: 600px;
     }
 
     .team-card {
@@ -769,12 +770,12 @@
       <div class="hero-divider"></div>
       <div class="hero-meta-item">
         <span class="hero-meta-label">Players</span>
-        <span class="hero-meta-value">18 Athletes</span>
+        <span class="hero-meta-value">20 Athletes</span>
       </div>
       <div class="hero-divider"></div>
       <div class="hero-meta-item">
         <span class="hero-meta-label">Teams</span>
-        <span class="hero-meta-value">6 Teams of 3</span>
+        <span class="hero-meta-value">4 Teams of 5</span>
       </div>
       <div class="hero-divider"></div>
       <div class="hero-meta-item">
@@ -802,7 +803,7 @@
       <div class="team-color-bar" style="background:#e63946;"></div>
       <div class="team-name" style="color:#e63946;">Red</div>
       <ul class="team-members">
-        <li>Zach</li><li>Anita</li><li>Kayla</li>
+        <li>Zach</li><li>Ashley</li><li>Abby</li><li>Coen</li><li>Anika</li>
       </ul>
     </div>
 
@@ -810,7 +811,7 @@
       <div class="team-color-bar" style="background:#457b9d;"></div>
       <div class="team-name" style="color:#7ab5d4;">Blue</div>
       <ul class="team-members">
-        <li>Michael</li><li>Kenzie</li><li>Anika</li>
+        <li>Michael</li><li>Kenzie</li><li>Nick</li><li>Leah</li><li>Grant</li>
       </ul>
     </div>
 
@@ -818,15 +819,7 @@
       <div class="team-color-bar" style="background:#2d6a4f;"></div>
       <div class="team-name" style="color:#52b788;">Green</div>
       <ul class="team-members">
-        <li>Ashley</li><li>Coen</li><li>Xavier</li>
-      </ul>
-    </div>
-
-    <div class="team-card">
-      <div class="team-color-bar" style="background:#555;"></div>
-      <div class="team-name" style="color:#aaa;">Black</div>
-      <ul class="team-members">
-        <li>Jimmy</li><li>Leah</li><li>Devin</li>
+        <li>Jimmy</li><li>Anita</li><li>Steven</li><li>Kayla</li><li>Devin</li>
       </ul>
     </div>
 
@@ -834,15 +827,7 @@
       <div class="team-color-bar" style="background:#f1faee;"></div>
       <div class="team-name" style="color:#f1faee;">White</div>
       <ul class="team-members">
-        <li>Abhi</li><li>Nick</li><li>Grant</li>
-      </ul>
-    </div>
-
-    <div class="team-card">
-      <div class="team-color-bar" style="background:#8d99ae;"></div>
-      <div class="team-name" style="color:#8d99ae;">Grey</div>
-      <ul class="team-members">
-        <li>Abby</li><li>Steven</li><li>Brianna</li>
+        <li>Abhi</li><li>Xavier</li><li>Brianna</li><li>Jack</li><li>Lauren</li>
       </ul>
     </div>
 
@@ -869,7 +854,7 @@
 <section>
   <div class="section-label">Live Bracket</div>
   <h2 class="section-title">Pins</h2>
-  <p style="color:var(--muted);margin-bottom:2rem;font-size:0.95rem;">Splits 6 teams into 2 simultaneous groups of 3. Each team takes a turn throwing. Tap knockouts to track scores, then group winners face off.</p>
+  <p style="color:var(--muted);margin-bottom:2rem;font-size:0.95rem;">Splits 4 teams into 2 simultaneous matchups. Each group's winner advances to the final.</p>
   <button class="bracket-btn" onclick="generatePinsBracket()">🎲 Randomize Groups</button>
   <div id="pins-container" style="margin-top:2rem;"></div>
 </section>
@@ -923,9 +908,10 @@
       preview: "Build a balloon chain with your teammates and race.",
       rules: [
         "2 teammates start at the start line with a balloon wedged between them (no hands allowed).",
-        "They run to the opposite end to pick up their 3rd teammate and a new balloon.",
-        "The chain grows — all 3 now connected with 2 balloons between them.",
-        "The full chain of 3 races back.",
+        "They run to the opposite end to pick up a 3rd teammate and a new balloon.",
+        "The chain of 3 runs to pick up a 4th teammate and another balloon.",
+        "The chain of 4 runs to pick up the 5th teammate and a final balloon.",
+        "The full chain of 5 races back to the finish line.",
         "If any balloon drops at any point, the team is eliminated.",
         "Fastest team to finish with the full chain intact wins."
       ]
@@ -950,7 +936,7 @@
       type: "team",
       preview: "Spoon in mouth, marshmallow on top — shuffle sideways for 100m without dropping.",
       rules: [
-        "All 3 teammates hold hands and stand behind the starting line.",
+        "All 5 teammates hold hands and stand behind the starting line.",
         "Each player holds a spoon in their mouth with a marshmallow balanced on top.",
         "On the signal, the team shuffles sideways 100 meters to the finish line.",
         "If any player's marshmallow falls, the entire team is eliminated.",
@@ -970,7 +956,7 @@
         "The ball must NEVER touch the floor.",
         "If a player drops the ball or breaks the sequence, they are eliminated.",
         "The person to the left of the eliminated player restarts the sequence.",
-        "Last player is the Winner & earns individual points and adds points for their team."
+        "Last player remaining wins and earns individual points & adds points for their team."
       ]
     },
     {
@@ -1001,8 +987,7 @@
         "On the signal, both teams pull as hard as they can.",
         "The team that pulls the center marker past their side's line wins the round.",
         "Best of 3 pulls per matchup.",
-        "Use the bracket randomizer below to determine match order.",
-        "Winning team advances. Champion team earn points."
+        "Format: Semis (2 matchups) → Final. Use the bracket randomizer below."
       ]
     },
     {
@@ -1011,15 +996,14 @@
       type: "team",
       preview: "Stand like bowling pins. One team throws to knock you out — hit below the knee only.",
       rules: [
-        "6 teams split into 2 groups of 3. Both groups play simultaneously.",
-        "Within each group: 1 team throws, the other 2 teams are pins.",
+        "4 teams split into 2 simultaneous matchups — 1 team throws, 1 team are pins.",
+        "Both matchups run at the same time.",
         "Pins must stand with both feet on the ground — like bowling pins. No moving.",
         "Each thrower gets 1 throw. Must hit pins below the knee to knock them out.",
         "A pin hit above the knee does NOT count — they stay in.",
         "Knocked out pins leave the field.",
-        "Rotate until all 3 teams in the group have thrown.",
-        "Team with the most knockouts wins the group.",
-        "Group winners face off for the overall win."
+        "The team with the most knockouts wins their matchup and advances to the final.",
+        "The 2 group winners face off in the final."
       ]
     },
     {
@@ -1035,7 +1019,7 @@
         "When IT says 'Goose', the tapped player jumps up and chases IT.",
         "IT must run around the full circle and sit in Goose's spot before being tagged.",
         "If IT is tagged, they are IT again. If IT makes it, Goose becomes the new IT.",
-        "[no points for optional game, have fun]"
+        "[No points for optional game]" 
       ]
     }
   ];
@@ -1057,8 +1041,8 @@
   });
 
   // ── TUG OF WAR BRACKET ──
-  const teams = ['Red', 'Blue', 'Green', 'Black', 'White', 'Grey'];
-  const teamColors = { Red:'#e63946', Blue:'#7ab5d4', Green:'#52b788', Black:'#aaa', White:'#f1faee', Grey:'#8d99ae' };
+  const teams = ['Red', 'Blue', 'Green', 'White'];
+  const teamColors = { Red:'#e63946', Blue:'#7ab5d4', Green:'#52b788', White:'#f1faee' };
   let bracket = [];
   let results = {};
 
@@ -1075,8 +1059,7 @@
     const shuffled = shuffle(teams);
     bracket = [
       [shuffled[0], shuffled[1]],
-      [shuffled[2], shuffled[3]],
-      [shuffled[4], shuffled[5]]
+      [shuffled[2], shuffled[3]]
     ];
     results = {};
     renderBracket();
@@ -1089,13 +1072,10 @@
 
   function renderBracket() {
     const container = document.getElementById('bracket-container');
-    const winners = [0,1,2].map(i => results[i] || null);
-    const allDone = winners.every(w => w !== null);
-
     let html = `<div class="bracket-rounds">`;
 
-    // Round 1
-    html += `<div class="bracket-round"><div class="bracket-round-label">Round 1</div>`;
+    // Semis
+    html += `<div class="bracket-round"><div class="bracket-round-label">Semis</div>`;
     bracket.forEach((match, i) => {
       const winner = results[i];
       html += `<div class="bracket-match">
@@ -1107,41 +1087,16 @@
     });
     html += `</div>`;
 
-    // Semifinals
-    if (allDone) {
-      const semiFinals = [[winners[0], winners[1]], [winners[2], 'Bye']];
-      html += `<div class="bracket-round"><div class="bracket-round-label">Semis</div>`;
-      semiFinals.forEach((match, i) => {
-        const key = `semi_${i}`;
-        const winner = results[key];
-        if (match[1] === 'Bye') {
-          html += `<div class="bracket-match">
-            <div class="bracket-team winner" style="--tc:${teamColors[match[0]]}">${match[0]}</div>
-            <div class="bracket-winner-label">✓ ${match[0]} advances (bye)</div>
-          </div>`;
-          if (!results[key]) { results[key] = match[0]; renderBracket(); return; }
-        } else {
-          html += `<div class="bracket-match">
-            <div class="bracket-team ${winner === match[0] ? 'winner' : winner ? 'loser' : ''}" style="--tc:${teamColors[match[0]]}" onclick="pickWinner('${key}','${match[0]}')">${match[0]}</div>
-            <div class="bracket-vs">vs</div>
-            <div class="bracket-team ${winner === match[1] ? 'winner' : winner ? 'loser' : ''}" style="--tc:${teamColors[match[1]]}" onclick="pickWinner('${key}','${match[1]}')">${match[1]}</div>
-            ${winner ? `<div class="bracket-winner-label">✓ ${winner} advances</div>` : `<div class="bracket-tap-hint">Tap winner</div>`}
-          </div>`;
-        }
-      });
-      html += `</div>`;
-    }
-
     // Final
-    const semiW0 = results['semi_0'];
-    const semiW1 = results['semi_1'];
-    if (semiW0 && semiW1) {
+    const w0 = results[0];
+    const w1 = results[1];
+    if (w0 && w1) {
       const finalWinner = results['final'];
       html += `<div class="bracket-round"><div class="bracket-round-label">Final</div>
         <div class="bracket-match">
-          <div class="bracket-team ${finalWinner === semiW0 ? 'winner' : finalWinner ? 'loser' : ''}" style="--tc:${teamColors[semiW0]}" onclick="pickWinner('final','${semiW0}')">${semiW0}</div>
+          <div class="bracket-team ${finalWinner === w0 ? 'winner' : finalWinner ? 'loser' : ''}" style="--tc:${teamColors[w0]}" onclick="pickWinner('final','${w0}')">${w0}</div>
           <div class="bracket-vs">vs</div>
-          <div class="bracket-team ${finalWinner === semiW1 ? 'winner' : finalWinner ? 'loser' : ''}" style="--tc:${teamColors[semiW1]}" onclick="pickWinner('final','${semiW1}')">${semiW1}</div>
+          <div class="bracket-team ${finalWinner === w1 ? 'winner' : finalWinner ? 'loser' : ''}" style="--tc:${teamColors[w1]}" onclick="pickWinner('final','${w1}')">${w1}</div>
           ${finalWinner ? `<div class="bracket-champion">🏆 ${finalWinner} wins Tug of War!</div>` : `<div class="bracket-tap-hint">Tap winner</div>`}
         </div>
       </div>`;
@@ -1159,8 +1114,8 @@
   function generatePinsBracket() {
     const shuffled = shuffle(teams);
     pinsGroups = [
-      [shuffled[0], shuffled[1], shuffled[2]],
-      [shuffled[3], shuffled[4], shuffled[5]]
+      [shuffled[0], shuffled[1]],
+      [shuffled[2], shuffled[3]]
     ];
     pinsGroupWinners = {};
     pinsFinalResult = null;
