@@ -7,743 +7,256 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --red: #e63946;
-      --blue: #457b9d;
-      --green: #2d6a4f;
-      --black: #1a1a1a;
-      --white: #f1faee;
-      --grey: #8d99ae;
-      --bg: #0d0d0d;
-      --surface: #161616;
-      --card: #1e1e1e;
-      --text: #f0ede8;
-      --muted: #888;
-      --accent: #f4c430;
+      --bg: #0d0d0d; --card: #1e1e1e; --text: #f0ede8; --muted: #888; --accent: #f4c430;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(230,57,70,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 30%, rgba(69,123,157,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse at 50% 80%, rgba(244,196,48,0.08) 0%, transparent 50%);
-      z-index: 0;
-    }
-
-    .hero-stripes {
-      position: absolute;
-      inset: 0;
-      background-image: repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 40px,
-        rgba(255,255,255,0.012) 40px,
-        rgba(255,255,255,0.012) 80px
-      );
-      z-index: 0;
-    }
-
+    /* HERO */
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 50%, rgba(230,57,70,0.15) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(69,123,157,0.15) 0%, transparent 60%), radial-gradient(ellipse at 50% 80%, rgba(244,196,48,0.08) 0%, transparent 50%); z-index: 0; }
+    .hero-stripes { position: absolute; inset: 0; background-image: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.012) 40px, rgba(255,255,255,0.012) 80px); z-index: 0; }
     .hero-content { position: relative; z-index: 1; }
-
-    .hero-eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.2s;
-    }
-
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(5rem, 15vw, 14rem);
-      line-height: 0.9;
-      letter-spacing: 0.02em;
-      color: var(--text);
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.4s;
-    }
-
-    .hero-title span {
-      display: block;
-      color: var(--accent);
-    }
-
-    .hero-meta {
-      margin-top: 2rem;
-      display: flex;
-      gap: 2rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.7s;
-    }
-
-    .hero-meta-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    .hero-meta-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .hero-meta-value {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .hero-divider {
-      width: 2px;
-      background: rgba(255,255,255,0.1);
-      align-self: stretch;
-    }
-
-    .hero-meta-link {
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.2rem;
-      transition: opacity 0.2s;
-    }
+    .hero-eyebrow { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.6s ease forwards 0.2s; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 15vw, 14rem); line-height: 0.9; color: var(--text); opacity: 0; animation: fadeUp 0.7s ease forwards 0.4s; }
+    .hero-title span { display: block; color: var(--accent); }
+    .hero-meta { margin-top: 2rem; display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s ease forwards 0.7s; }
+    .hero-meta-item { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
+    .hero-meta-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .hero-meta-value { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .hero-divider { width: 2px; background: rgba(255,255,255,0.1); align-self: stretch; }
+    .hero-meta-link { text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 0.2rem; transition: opacity 0.2s; }
     .hero-meta-link:hover { opacity: 0.75; }
-    .hero-meta-address {
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.02em;
-    }
+    .hero-meta-address { font-size: 0.72rem; color: var(--muted); }
+    .scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0; animation: fadeUp 0.7s ease forwards 1.2s; }
+    .scroll-arrow { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--accent), transparent); animation: scrollPulse 1.5s ease-in-out infinite; }
 
-    .scroll-hint {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--muted);
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 1.2s;
-    }
+    /* SECTION */
+    section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .section-label { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; font-weight: 700; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1; margin-bottom: 3rem; color: var(--text); }
 
-    .scroll-arrow {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-      animation: scrollPulse 1.5s ease-in-out infinite;
-    }
+    /* TEAMS */
+    .teams-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; max-width: 600px; }
+    .team-card { background: var(--card); border-radius: 12px; padding: 1.25rem; border: 1px solid rgba(255,255,255,0.06); position: relative; overflow: hidden; transition: transform 0.2s ease, border-color 0.2s ease; }
+    .team-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.15); }
+    .team-color-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .team-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; margin-bottom: 0.75rem; margin-top: 0.5rem; }
+    .team-members { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .team-members li { font-size: 0.9rem; color: rgba(240,237,232,0.75); display: flex; align-items: center; gap: 0.5rem; }
+    .team-members li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
-    /* ── SECTION ── */
-    section {
-      padding: 5rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-      font-weight: 700;
-    }
-
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      line-height: 1;
-      margin-bottom: 3rem;
-      color: var(--text);
-    }
-
-    /* ── TEAMS ── */
-    .teams-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      max-width: 600px;
-    }
-
-    .team-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 1.25rem;
-      border: 1px solid rgba(255,255,255,0.06);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .team-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(255,255,255,0.15);
-    }
-
-    .team-color-bar {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-    }
-
-    .team-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.75rem;
-      margin-top: 0.5rem;
-    }
-
-    .team-members {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .team-members li {
-      font-size: 0.9rem;
-      color: rgba(240,237,232,0.75);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .team-members li::before {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: currentColor;
-      flex-shrink: 0;
-    }
-
-    /* ── EVENTS GRID ── */
-    .events-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1rem;
-    }
-
-    .event-card {
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 1.5rem;
-      cursor: pointer;
-      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .event-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(244,196,48,0.04), transparent);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-
-    .event-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(244,196,48,0.3);
-      background: #222;
-    }
-
+    /* EVENTS */
+    .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .event-card { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; position: relative; overflow: hidden; }
+    .event-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(244,196,48,0.04), transparent); opacity: 0; transition: opacity 0.2s ease; }
+    .event-card:hover { transform: translateY(-4px); border-color: rgba(244,196,48,0.3); background: #222; }
     .event-card:hover::after { opacity: 1; }
+    .event-number { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 1; color: rgba(244,196,48,0.15); margin-bottom: 0.5rem; }
+    .event-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.03em; line-height: 1.1; margin-bottom: 0.75rem; color: var(--text); }
+    .event-tag { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 4px; background: rgba(244,196,48,0.1); color: var(--accent); margin-bottom: 0.75rem; }
+    .event-tag.team { background: rgba(69,123,157,0.15); color: #7ab5d4; }
+    .event-preview { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+    .event-click-hint { margin-top: 1rem; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(244,196,48,0.5); display: flex; align-items: center; gap: 0.4rem; }
+    .event-click-hint::before { content: '→'; }
 
-    .event-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem;
-      line-height: 1;
-      color: rgba(244,196,48,0.15);
-      margin-bottom: 0.5rem;
-    }
-
-    .event-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 0.03em;
-      line-height: 1.1;
-      margin-bottom: 0.75rem;
-      color: var(--text);
-    }
-
-    .event-tag {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      background: rgba(244,196,48,0.1);
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-    }
-
-    .event-tag.team {
-      background: rgba(69,123,157,0.15);
-      color: #7ab5d4;
-    }
-
-    .event-preview {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .event-click-hint {
-      margin-top: 1rem;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(244,196,48,0.5);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .event-click-hint::before {
-      content: '→';
-    }
-
-    /* ── MODAL ── */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .modal {
-      background: #1a1a1a;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 2.5rem;
-      max-width: 560px;
-      width: 100%;
-      max-height: 85vh;
-      overflow-y: auto;
-      transform: translateY(20px) scale(0.97);
-      transition: transform 0.25s ease;
-      position: relative;
-    }
-
-    .modal-overlay.active .modal {
-      transform: translateY(0) scale(1);
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.25rem;
-      background: rgba(255,255,255,0.06);
-      border: none;
-      color: var(--text);
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
-
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1.5rem; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal { background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 2.5rem; max-width: 560px; width: 100%; max-height: 85vh; overflow-y: auto; transform: translateY(20px) scale(0.97); transition: transform 0.25s ease; position: relative; }
+    .modal-overlay.active .modal { transform: translateY(0) scale(1); }
+    .modal-close { position: absolute; top: 1.25rem; right: 1.25rem; background: rgba(255,255,255,0.06); border: none; color: var(--text); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
     .modal-close:hover { background: rgba(255,255,255,0.12); }
+    .modal-eyebrow { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; font-weight: 700; }
+    .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; line-height: 1; margin-bottom: 1.5rem; color: var(--text); }
+    .modal-tag { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 4px; background: rgba(244,196,48,0.1); color: var(--accent); margin-bottom: 1.5rem; }
+    .modal-tag.team { background: rgba(69,123,157,0.15); color: #7ab5d4; }
+    .modal-divider { height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 1.5rem; }
+    .rules-title { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; font-weight: 700; }
+    .rules-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .rules-list li { display: flex; gap: 0.75rem; font-size: 0.92rem; line-height: 1.5; color: rgba(240,237,232,0.85); }
+    .rules-list li .rule-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--accent); min-width: 1.2rem; line-height: 1.4; }
 
-    .modal-eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-    }
-
-    .modal-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.5rem;
-      line-height: 1;
-      margin-bottom: 1.5rem;
-      color: var(--text);
-    }
-
-    .modal-tag {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      background: rgba(244,196,48,0.1);
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-tag.team {
-      background: rgba(69,123,157,0.15);
-      color: #7ab5d4;
-    }
-
-    .modal-divider {
-      height: 1px;
-      background: rgba(255,255,255,0.07);
-      margin-bottom: 1.5rem;
-    }
-
-    .rules-title {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1rem;
-      font-weight: 700;
-    }
-
-    .rules-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .rules-list li {
-      display: flex;
-      gap: 0.75rem;
-      font-size: 0.92rem;
-      line-height: 1.5;
-      color: rgba(240,237,232,0.85);
-    }
-
-    .rules-list li .rule-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      color: var(--accent);
-      min-width: 1.2rem;
-      line-height: 1.4;
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.4; transform: scaleY(1); }
-      50%       { opacity: 1;   transform: scaleY(1.1); }
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 3rem 2rem;
-      color: var(--muted);
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-
-    /* ── BRACKET ── */
-    .bracket-btn {
-      background: var(--accent);
-      color: #000;
-      border: none;
-      padding: 0.75rem 2rem;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      letter-spacing: 0.05em;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.2s;
-    }
+    /* BRACKET */
+    .bracket-btn { background: var(--accent); color: #000; border: none; padding: 0.75rem 2rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em; border-radius: 8px; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
     .bracket-btn:hover { opacity: 0.85; transform: translateY(-2px); }
-
-    .bracket-rounds {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      align-items: flex-start;
-    }
-
-    .bracket-round {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      min-width: 180px;
-    }
-
-    .bracket-round-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-    }
-
-    .bracket-match {
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .bracket-team {
-      padding: 0.5rem 0.75rem;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: background 0.15s, border-color 0.15s, transform 0.15s;
-      color: var(--tc, var(--text));
-      border-left: 3px solid var(--tc, rgba(255,255,255,0.1));
-    }
-
+    .bracket-rounds { display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start; }
+    .bracket-round { display: flex; flex-direction: column; gap: 1rem; min-width: 180px; }
+    .bracket-round-label { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 0.25rem; }
+    .bracket-match { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .bracket-team { padding: 0.5rem 0.75rem; border-radius: 6px; font-weight: 700; font-size: 0.9rem; cursor: pointer; border: 1px solid rgba(255,255,255,0.08); transition: background 0.15s, transform 0.15s; color: var(--tc, var(--text)); border-left: 3px solid var(--tc, rgba(255,255,255,0.1)); }
     .bracket-team:hover { background: rgba(255,255,255,0.05); transform: translateX(2px); }
     .bracket-team.winner { background: rgba(244,196,48,0.1); border-color: var(--accent); }
     .bracket-team.loser { opacity: 0.35; text-decoration: line-through; cursor: default; }
     .bracket-team.loser:hover { transform: none; background: transparent; }
+    .bracket-vs { font-size: 0.7rem; color: var(--muted); text-align: center; letter-spacing: 0.1em; }
+    .bracket-winner-label { font-size: 0.72rem; color: var(--accent); margin-top: 0.25rem; font-weight: 600; }
+    .bracket-tap-hint { font-size: 0.68rem; color: var(--muted); margin-top: 0.25rem; }
+    .bracket-champion { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--accent); margin-top: 0.5rem; }
 
-    .bracket-vs {
-      font-size: 0.7rem;
-      color: var(--muted);
-      text-align: center;
-      letter-spacing: 0.1em;
+    /* SCOREBOARD */
+    .scoreboard-wrap { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; overflow: hidden; }
+    /* COLLAPSIBLE */
+    .collapsible-header {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0; margin-bottom: 0; text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 1.25rem; margin-bottom: 1.25rem;
+    }
+    .collapsible-header:hover .section-title { color: var(--accent); }
+    .collapsible-chevron {
+      font-size: 0.9rem; color: var(--accent); transition: transform 0.3s ease;
+      background: rgba(244,196,48,0.1); border: 1px solid rgba(244,196,48,0.25);
+      border-radius: 50%; width: 32px; height: 32px; display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .collapsible-header.open .collapsible-chevron { transform: rotate(180deg); }
+    .collapsible-body {
+      overflow: hidden; max-height: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+    .collapsible-body.open { max-height: 4000px; opacity: 1; }
+
+    /* INDIVIDUAL LEADERBOARD */
+    .ind-leaderboard { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .ind-row { display: flex; align-items: center; gap: 0.75rem; background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 0.75rem 1rem; }
+    .ind-row.first { border-color: rgba(244,196,48,0.25); }
+    .ind-rank { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--muted); min-width: 1.8rem; line-height: 1; }
+    .ind-name { flex: 1; font-weight: 700; font-size: 0.95rem; }
+    .ind-team-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .ind-team-label { font-size: 0.7rem; color: var(--muted); margin-left: 0.25rem; }
+    .ind-pts { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--accent); line-height: 1; }
+    .ind-expand-btn { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 0.6rem; color: var(--muted); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: background 0.2s, color 0.2s; margin-top: 0.25rem; }
+    .ind-expand-btn:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+    .ind-expand-chevron { transition: transform 0.3s; }
+    .ind-expand-btn.open .ind-expand-chevron { transform: rotate(180deg); }
+    .ind-rest { overflow: hidden; max-height: 0; opacity: 0; transition: max-height 0.35s ease, opacity 0.25s ease; display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.25rem; }
+    .ind-rest.open { max-height: 1000px; opacity: 1; }
+
+    /* LEADERBOARD */
+    .leaderboard { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; }
+    .leaderboard-row { display: flex; align-items: center; gap: 1rem; background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 1rem 1.25rem; transition: border-color 0.2s; }
+    .leaderboard-row.first { border-color: rgba(244,196,48,0.3); background: rgba(244,196,48,0.04); }
+    .leaderboard-rank { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--muted); min-width: 2rem; line-height: 1; }
+    .leaderboard-row.first .leaderboard-rank { color: var(--accent); }
+    .leaderboard-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+    .leaderboard-team { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; flex: 1; }
+    .leaderboard-pts { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--accent); line-height: 1; }
+    .leaderboard-pts-label { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ROTATED TABLE (events as rows, teams as columns) */
+    .rotated-table-wrap { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; overflow: hidden; }
+    .rotated-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; table-layout: fixed; }
+    .rotated-table th { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); font-weight: 700; padding: 0.85rem 0.75rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .rotated-table th:first-child { text-align: left; padding-left: 1.25rem; width: 35%; }
+    .rotated-table td { padding: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; text-align: center; font-size: 0.85rem; word-break: break-word; }
+    .rotated-table td:first-child { text-align: left; padding-left: 1.25rem; color: var(--muted); font-size: 0.78rem; }
+    .rotated-table tr:last-child td { border-bottom: none; }
+    .rotated-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .rotated-table tr.total-row td { border-top: 1px solid rgba(255,255,255,0.1); }
+    .rotated-table tr.total-row td:first-child { color: var(--text); font-weight: 700; font-size: 0.82rem; }
+    .rot-score { font-weight: 600; color: rgba(240,237,232,0.85); }
+    .rot-empty { color: rgba(255,255,255,0.2); }
+    .rot-total { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--accent); line-height: 1; }
+    .rot-event-btn { cursor: pointer; }
+    .rot-event-btn:hover td:first-child { color: var(--accent); }
+    .rot-entered { color: #52b788; font-size: 0.6rem; display: block; }
+
+    @media (max-width: 640px) {
+      .rotated-table th:first-child { width: 30%; padding-left: 0.75rem; font-size: 0.55rem; }
+      .rotated-table th { padding: 0.6rem 0.3rem; font-size: 0.55rem; letter-spacing: 0.05em; }
+      .rotated-table td { padding: 0.6rem 0.3rem; font-size: 0.78rem; }
+      .rotated-table td:first-child { padding-left: 0.75rem; font-size: 0.72rem; }
+      .rot-total { font-size: 1.1rem; }
+      .leaderboard-pts { font-size: 1.6rem; }
     }
 
-    .bracket-winner-label {
-      font-size: 0.72rem;
-      color: var(--accent);
-      margin-top: 0.25rem;
-      font-weight: 600;
-    }
+    .scoreboard-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .scoreboard-table th { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); font-weight: 700; padding: 0.85rem 0.6rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.07); white-space: nowrap; }
+    .scoreboard-table th:first-child { text-align: left; padding-left: 1.25rem; }
+    .scoreboard-table td { padding: 0.85rem 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; text-align: center; }
+    .scoreboard-table td:first-child { text-align: left; padding-left: 1.25rem; }
+    .scoreboard-table tr:last-child td { border-bottom: none; }
+    .scoreboard-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .score-team-name { font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; }
+    .score-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .score-total { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--accent); line-height: 1; }
+    .score-cell { font-size: 0.82rem; color: rgba(240,237,232,0.35); }
+    .score-cell.has-score { color: rgba(240,237,232,0.85); font-weight: 600; }
 
-    .bracket-tap-hint {
-      font-size: 0.68rem;
-      color: var(--muted);
-      margin-top: 0.25rem;
-      letter-spacing: 0.1em;
-    }
+    /* SCORE ENTRY MODAL */
+    .score-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.88); backdrop-filter: blur(10px); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 1.5rem; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .score-modal-overlay.active { opacity: 1; pointer-events: all; }
+    .score-modal { background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 2rem; max-width: 400px; width: 100%; transform: translateY(16px); transition: transform 0.2s; max-height: 90vh; overflow-y: auto; }
+    .score-modal-overlay.active .score-modal { transform: translateY(0); }
+    .score-modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; margin-bottom: 0.25rem; color: var(--text); }
+    .score-modal-sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .place-block { margin-bottom: 1.25rem; }
+    .place-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .place-label span { color: var(--muted); font-size: 0.65rem; }
+    .picker-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
+    .picker-btn { padding: 0.5rem 0.6rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: rgba(240,237,232,0.7); font-size: 0.82rem; cursor: pointer; text-align: left; transition: background 0.15s, border-color 0.15s; font-family: 'DM Sans', sans-serif; }
+    .picker-btn:hover { background: rgba(255,255,255,0.08); }
+    .picker-btn.selected { background: rgba(244,196,48,0.12); border-color: rgba(244,196,48,0.5); color: var(--accent); font-weight: 700; }
+    .picker-btn.disabled { opacity: 0.25; cursor: not-allowed; }
+    .score-modal-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+    .score-modal-save { flex: 1; background: var(--accent); color: #000; border: none; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em; padding: 0.7rem; border-radius: 10px; cursor: pointer; transition: opacity 0.2s; }
+    .score-modal-save:hover { opacity: 0.85; }
+    .score-modal-cancel { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: var(--muted); font-size: 0.82rem; padding: 0.7rem 1rem; border-radius: 10px; cursor: pointer; }
+    .score-modal-reset { background: rgba(230,57,70,0.1); border: 1px solid rgba(230,57,70,0.25); color: #e63946; font-size: 0.75rem; padding: 0.5rem 0.75rem; border-radius: 8px; cursor: pointer; margin-top: 0.75rem; width: 100%; }
 
-    .bracket-champion {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem;
-      color: var(--accent);
-      margin-top: 0.5rem;
-      letter-spacing: 0.05em;
-    }
+    /* ENTER SCORES BTN */
+    .enter-scores-btn { background: rgba(244,196,48,0.1); border: 1px solid rgba(244,196,48,0.3); color: var(--accent); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.45rem 1rem; border-radius: 6px; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+    .enter-scores-btn:hover { background: rgba(244,196,48,0.2); }
 
-    /* ── SCROLLBAR ── */
+    /* FOOTER */
+    footer { text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: 0.8rem; letter-spacing: 0.1em; border-top: 1px solid rgba(255,255,255,0.05); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scrollPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+    /* TOOLBAR */
+    .view-toolbar { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 9999; background: #111; border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; padding: 0.4rem; display: flex; gap: 0.25rem; box-shadow: 0 8px 32px rgba(0,0,0,0.6); backdrop-filter: blur(12px); }
+    @media (max-width: 640px) { .view-toolbar { display: none !important; } }
+    .view-btn { border: none; background: transparent; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.45rem 1rem; border-radius: 999px; cursor: pointer; transition: background 0.2s, color 0.2s; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap; }
+    .view-btn.active { background: var(--accent); color: #000; }
+    .view-btn:not(.active):hover { background: rgba(255,255,255,0.07); color: var(--text); }
+
+    /* MOBILE SIM */
+    .mobile-sim-wrapper { display: flex; justify-content: center; align-items: flex-start; padding: 2rem 1rem 6rem; background: #080808; min-height: 100vh; }
+    .mobile-sim-frame { width: 390px; height: 844px; border-radius: 48px; overflow: hidden; border: 8px solid #2a2a2a; box-shadow: 0 0 0 1px #444, 0 32px 80px rgba(0,0,0,0.8); position: relative; flex-shrink: 0; }
+    .mobile-sim-frame::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 28px; background: #2a2a2a; border-radius: 0 0 18px 18px; z-index: 10; }
+    .mobile-sim-frame iframe { width: 390px; height: 844px; border: none; display: block; }
+
+    /* MOBILE */
+    @media (max-width: 640px) {
+      .hero-meta { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 1.5rem; width: 100%; }
+      .hero-divider { display: none; }
+      .hero-meta-item, .hero-meta-item:last-child { align-items: center; text-align: center; }
+      .hero-meta-value { font-size: 1rem; white-space: nowrap; }
+      .scroll-hint { position: absolute; left: 0; right: 0; bottom: 2rem; transform: none; display: flex; flex-direction: column; align-items: center; }
+      section { padding: 3rem 1.25rem; }
+      .teams-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .events-grid { grid-template-columns: 1fr; }
+      .bracket-rounds { flex-direction: column; gap: 1.5rem; }
+      .bracket-round { min-width: unset; width: 100%; }
+      .bracket-match { min-width: unset !important; width: 100%; }
+      .bracket-btn { width: 100%; }
+      .modal { padding: 1.5rem; }
+      .modal-title { font-size: 2rem; }
+      .scoreboard-table { font-size: 0.7rem; }
+      .scoreboard-table th, .scoreboard-table td { padding: 0.5rem 0.3rem; }
+      .scoreboard-table th:first-child, .scoreboard-table td:first-child { padding-left: 0.75rem; }
+      .score-total { font-size: 1.1rem; }
+      .picker-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 400px) { .teams-grid { grid-template-columns: 1fr; } }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-
-    /* ── VIEW TOGGLE TOOLBAR ── */
-    .view-toolbar {
-      position: fixed;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-      background: #111;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 999px;
-      padding: 0.4rem;
-      display: flex;
-      gap: 0.25rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-      backdrop-filter: blur(12px);
-    }
-
-    /* Hide toolbar on real mobile devices */
-    @media (max-width: 640px) {
-      .view-toolbar { display: none !important; }
-    }
-
-    .view-btn {
-      border: none;
-      background: transparent;
-      color: var(--muted);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.45rem 1rem;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      white-space: nowrap;
-    }
-
-    .view-btn.active {
-      background: var(--accent);
-      color: #000;
-    }
-
-    .view-btn:not(.active):hover {
-      background: rgba(255,255,255,0.07);
-      color: var(--text);
-    }
-
-    /* ── MOBILE SIMULATOR ── */
-    .mobile-sim-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 2rem 1rem 6rem;
-      background: #080808;
-      min-height: 100vh;
-    }
-
-    .mobile-sim-frame {
-      width: 390px;
-      height: 844px;
-      border-radius: 48px;
-      overflow: hidden;
-      border: 8px solid #2a2a2a;
-      box-shadow: 0 0 0 1px #444, 0 32px 80px rgba(0,0,0,0.8);
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .mobile-sim-frame::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 120px; height: 28px;
-      background: #2a2a2a;
-      border-radius: 0 0 18px 18px;
-      z-index: 10;
-    }
-
-    .mobile-sim-frame iframe {
-      width: 390px;
-      height: 844px;
-      border: none;
-      display: block;
-    }
-
-    /* ── MOBILE RESPONSIVE ── */
-    @media (max-width: 640px) {
-
-      /* Hero meta — hide dividers, wrap into 2x2 grid */
-      .hero-meta {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-        margin-top: 1.5rem;
-        width: 100%;
-      }
-      .hero-divider { display: none; }
-      .hero-meta-item { align-items: center; text-align: center; }
-      .hero-meta-item:last-child { align-items: center; text-align: center; }
-      .hero-meta-value { font-size: 1rem; white-space: nowrap; }
-      .scroll-hint {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 2rem;
-        transform: none;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      /* Section padding tighter on mobile */
-      section { padding: 3rem 1.25rem; }
-
-      /* Teams — single column on very small screens */
-      .teams-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-
-      /* Events — single column */
-      .events-grid { grid-template-columns: 1fr; }
-
-      /* Bracket — stack rounds vertically */
-      .bracket-rounds {
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-      .bracket-round { min-width: unset; width: 100%; }
-      .bracket-match { min-width: unset !important; width: 100%; }
-
-      /* Bracket button full width */
-      .bracket-btn { width: 100%; }
-
-      /* Modal padding tighter */
-      .modal { padding: 1.5rem; }
-      .modal-title { font-size: 2rem; }
-    }
-
-    @media (max-width: 400px) {
-      /* Very small phones — single column teams */
-      .teams-grid { grid-template-columns: 1fr; }
-    }
   </style>
 </head>
 <body>
@@ -754,9 +267,7 @@
   <div class="hero-stripes"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">🏆 You're invited</div>
-    <h1 class="hero-title">
-      Field<span>Day</span>2026
-    </h1>
+    <h1 class="hero-title">Field<span>Day</span>2026</h1>
     <div class="hero-meta">
       <div class="hero-meta-item">
         <span class="hero-meta-label">Date</span>
@@ -787,10 +298,7 @@
       </div>
     </div>
   </div>
-  <div class="scroll-hint">
-    <div class="scroll-arrow"></div>
-    Scroll
-  </div>
+  <div class="scroll-hint"><div class="scroll-arrow"></div>Scroll</div>
 </div>
 
 <!-- TEAMS -->
@@ -798,72 +306,99 @@
   <div class="section-label">The Lineup</div>
   <h2 class="section-title">Teams</h2>
   <div class="teams-grid">
-
     <div class="team-card">
       <div class="team-color-bar" style="background:#e63946;"></div>
       <div class="team-name" style="color:#e63946;">Red</div>
-      <ul class="team-members">
-        <li>Zach</li><li>Ashley</li><li>Abby</li><li>Coen</li><li>Anika</li>
-      </ul>
+      <ul class="team-members"><li>Zach</li><li>Ashley</li><li>Abby</li><li>Coen</li><li>Anika</li></ul>
     </div>
-
     <div class="team-card">
       <div class="team-color-bar" style="background:#457b9d;"></div>
       <div class="team-name" style="color:#7ab5d4;">Blue</div>
-      <ul class="team-members">
-        <li>Michael</li><li>Kenzie</li><li>Nick</li><li>Leah</li><li>Grant</li>
-      </ul>
+      <ul class="team-members"><li>Michael</li><li>Kenzie</li><li>Nick</li><li>Leah</li><li>Grant</li></ul>
     </div>
-
     <div class="team-card">
       <div class="team-color-bar" style="background:#2d6a4f;"></div>
       <div class="team-name" style="color:#52b788;">Green</div>
-      <ul class="team-members">
-        <li>Jimmy</li><li>Anita</li><li>Steven</li><li>Kayla</li><li>Devin</li>
-      </ul>
+      <ul class="team-members"><li>Jimmy</li><li>Anita</li><li>Steven</li><li>Kayla</li><li>Devin</li></ul>
     </div>
-
     <div class="team-card">
       <div class="team-color-bar" style="background:#f1faee;"></div>
       <div class="team-name" style="color:#f1faee;">White</div>
-      <ul class="team-members">
-        <li>Abhi</li><li>Xavier</li><li>Brianna</li><li>Jack</li><li>Lauren</li>
-      </ul>
+      <ul class="team-members"><li>Abhi</li><li>Xavier</li><li>Brianna</li><li>Jack</li><li>Lauren</li></ul>
     </div>
-
   </div>
 </section>
 
 <!-- EVENTS -->
 <section>
-  <div class="section-label">Click any event for rules</div>
-  <h2 class="section-title">Events</h2>
-  <div class="events-grid" id="events-grid"></div>
+  <button class="collapsible-header" onclick="toggleSection('events-body', this)">
+    <div>
+      <div class="section-label">Tap to expand</div>
+      <h2 class="section-title" style="margin-bottom:0;">Events</h2>
+    </div>
+    <div class="collapsible-chevron">▼</div>
+  </button>
+  <div class="collapsible-body" id="events-body">
+    <div class="events-grid" id="events-grid"></div>
+  </div>
 </section>
 
 <!-- TUG OF WAR BRACKET -->
 <section>
-  <div class="section-label">Live Bracket</div>
-  <h2 class="section-title">Tug of War</h2>
-  <p style="color:var(--muted);margin-bottom:2rem;font-size:0.95rem;">Randomize the bracket, then tap the winning team after each match to advance them.</p>
-  <button class="bracket-btn" onclick="generateBracket()">🎲 Randomize Bracket</button>
-  <div id="bracket-container" style="margin-top:2rem;"></div>
+  <button class="collapsible-header" onclick="toggleSection('tug-body', this)">
+    <div>
+      <div class="section-label">Live Bracket — Tap to expand</div>
+      <h2 class="section-title" style="margin-bottom:0;">Tug of War</h2>
+    </div>
+    <div class="collapsible-chevron">▼</div>
+  </button>
+  <div class="collapsible-body" id="tug-body">
+    <p style="color:var(--muted);margin-bottom:2rem;font-size:0.95rem;">Randomize the bracket, then tap the winning team after each match to advance them.</p>
+    <button class="bracket-btn" onclick="generateBracket()">🎲 Randomize Bracket</button>
+    <div id="bracket-container" style="margin-top:2rem;"></div>
+  </div>
 </section>
 
 <!-- PINS BRACKET -->
 <section>
-  <div class="section-label">Live Bracket</div>
-  <h2 class="section-title">Pins</h2>
-  <p style="color:var(--muted);margin-bottom:2rem;font-size:0.95rem;">Splits 4 teams into 2 simultaneous matchups. Each group's winner advances to the final.</p>
-  <button class="bracket-btn" onclick="generatePinsBracket()">🎲 Randomize Groups</button>
-  <div id="pins-container" style="margin-top:2rem;"></div>
+  <button class="collapsible-header" onclick="toggleSection('pins-body', this)">
+    <div>
+      <div class="section-label">Live Bracket — Tap to expand</div>
+      <h2 class="section-title" style="margin-bottom:0;">Pins</h2>
+    </div>
+    <div class="collapsible-chevron">▼</div>
+  </button>
+  <div class="collapsible-body" id="pins-body">
+    <p style="color:var(--muted);margin-bottom:2rem;font-size:0.95rem;">Splits 4 teams into 2 simultaneous matchups. Each group's winner advances to the final.</p>
+    <button class="bracket-btn" onclick="generatePinsBracket()">🎲 Randomize Groups</button>
+    <div id="pins-container" style="margin-top:2rem;"></div>
+  </div>
 </section>
 
-<footer>
-  Field Day 2026 &nbsp;·&nbsp; May 16th &nbsp;·&nbsp; 6:30 PM &nbsp;·&nbsp; Let's get it 🏆
-</footer>
+<!-- SCOREBOARD -->
+<section>
+  <div class="section-label">Live</div>
+  <h2 class="section-title">Scoreboard</h2>
+  <p style="color:var(--muted);margin-bottom:2rem;font-size:0.95rem;">Scores update live across all devices. Tap any event row to enter results.</p>
 
-<!-- MODAL -->
+  <!-- TEAM LEADERBOARD -->
+  <div class="section-label" style="margin-bottom:0.5rem;">Teams</div>
+  <div id="leaderboard-container"></div>
+
+  <!-- INDIVIDUAL LEADERBOARD -->
+  <div class="section-label" style="margin-top:2rem;margin-bottom:0.5rem;">Individual Top Performers</div>
+  <div id="individual-leaderboard-container"></div>
+
+  <!-- ROTATED TABLE -->
+  <div class="section-label" style="margin-top:2rem;margin-bottom:0.5rem;">Event Breakdown</div>
+  <div class="rotated-table-wrap">
+    <div id="scoreboard-container" style="padding:1.5rem;color:var(--muted);font-size:0.9rem;">Connecting to live scores...</div>
+  </div>
+</section>
+
+<footer>Field Day 2026 &nbsp;·&nbsp; May 16th &nbsp;·&nbsp; 6:30 PM &nbsp;·&nbsp; Let's get it 🏆</footer>
+
+<!-- RULES MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
   <div class="modal" id="modal">
     <button class="modal-close" onclick="closeModalDirect()">✕</button>
@@ -876,334 +411,20 @@
   </div>
 </div>
 
-<script>
-  function openMaps(e) {
-    e.preventDefault();
-    const address = '3451+East+Barber+Valley+Drive,+Boise,+ID+83706';
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    const url = isIOS
-      ? `https://maps.apple.com/?q=${address}`
-      : `https://maps.google.com/?q=${address}`;
-    window.open(url, '_blank');
-  }
+<!-- SCORE ENTRY MODAL -->
+<div class="score-modal-overlay" id="score-modal-overlay">
+  <div class="score-modal">
+    <div class="score-modal-title" id="score-modal-title">Enter Results</div>
+    <div class="score-modal-sub" id="score-modal-sub"></div>
+    <div id="score-modal-body"></div>
+    <div class="score-modal-actions">
+      <button class="score-modal-cancel" onclick="closeScoreModal()">Cancel</button>
+      <button class="score-modal-save" onclick="saveScores()">Save Results</button>
+    </div>
+    <button class="score-modal-reset" onclick="resetEvent()">🗑 Clear this event's scores</button>
+  </div>
+</div>
 
-  const events = [
-    {
-      number: "01",
-      name: "Dasher",
-      type: "individual",
-      preview: "100m sprint - men's and women's heats.",
-      rules: [
-        "Two separate heats: one for men, one for women.",
-        "All runners start behind the starting line.",
-        "On the signal, sprint 100 meters to the finish line.",
-        "First false start = warning. Second false start = disqualification.",
-        "Winner earns individual points and adds points for their team."
-      ]
-    },
-    {
-      number: "02",
-      name: "Caterpillar",
-      type: "team",
-      preview: "Build a balloon chain with your teammates and race.",
-      rules: [
-        "2 teammates start at the start line with a balloon wedged between them (no hands allowed).",
-        "They run to the opposite end to pick up a 3rd teammate and a new balloon.",
-        "The chain of 3 runs to pick up a 4th teammate and another balloon.",
-        "The chain of 4 runs to pick up the 5th teammate and a final balloon.",
-        "The full chain of 5 races back to the finish line.",
-        "If any balloon drops at any point, the team is eliminated.",
-        "Fastest team to finish with the full chain intact wins."
-      ]
-    },
-    {
-      number: "03",
-      name: "Tater Sac",
-      type: "individual",
-      preview: "100m potato sac race.",
-      rules: [
-        "Each player steps into a potato sac and holds it up at the waist.",
-        "On the signal, hop 100 meters to the finish line.",
-        "No crawling, rolling, or dragging — must stay upright and hopping.",
-        "If you fall, get back up and keep going.",
-        "First player across the finish line wins.",
-        "Winner earns individual points and adds points for their team."
-      ]
-    },
-    {
-      number: "04",
-      name: "Mellow Shuffle",
-      type: "team",
-      preview: "Spoon in mouth, marshmallow on top — shuffle sideways for 100m without dropping.",
-      rules: [
-        "All 5 teammates hold hands and stand behind the starting line.",
-        "Each player holds a spoon in their mouth with a marshmallow balanced on top.",
-        "On the signal, the team shuffles sideways 100 meters to the finish line.",
-        "If any player's marshmallow falls, the entire team is eliminated.",
-        "No touching the spoon or marshmallow with hands at any time.",
-        "First team to cross the finish line with all marshmallows intact wins."
-      ]
-    },
-    {
-      number: "05",
-      name: "Juggle Train",
-      type: "individual",
-      preview: "Add a juggle move each round — drop the ball and you're out.",
-      rules: [
-        "All players stand in a circle.",
-        "One player starts with a juggle move — the ball MUST switch from one hand to the other (e.g. throw left hand, spin, catch right hand).",
-        "The next player repeats the full sequence and adds their own move.",
-        "The ball must NEVER touch the floor.",
-        "If a player drops the ball or breaks the sequence, they are eliminated.",
-        "The person to the left of the eliminated player restarts the sequence.",
-        "Last player remaining wins and earns individual points & adds points for their team."
-      ]
-    },
-    {
-      number: "06",
-      name: "Jenga Smash",
-      type: "individual",
-      preview: "Knock down the tower. Stop fielders from rebuilding it. Fewest blocks standing wins.",
-      rules: [
-        "Set up a Jenga tower on a table. All other players stand in a circle around the table as fielders.",
-        "The thrower stands 5 feet behind the table.",
-        "The thrower has 2 balls and throws to knock the tower down.",
-        "Once the tower falls, fielders attempt to rebuild it.",
-        "The thrower can throw balls at fielders to eliminate them — a hit fielder is out and cannot rebuild.",
-        "Fielders may NOT block throws — only rebuild after the tower falls.",
-        "When time is called, count remaining un-stacked blocks.",
-        "Lowest block count wins. Each player takes a turn as thrower.",
-        "Winner earns individual points and adds points for their team."
-      ]
-    },
-    {
-      number: "07",
-      name: "Tug of War",
-      type: "team",
-      preview: "Pull the other team across the line. Live bracket below.",
-      rules: [
-        "Two teams line up on opposite ends of a rope.",
-        "A marker sits at the center of the rope.",
-        "On the signal, both teams pull as hard as they can.",
-        "The team that pulls the center marker past their side's line wins the round.",
-        "Best of 3 pulls per matchup.",
-        "Format: Semis (2 matchups) → Final. Use the bracket randomizer below."
-      ]
-    },
-    {
-      number: "08",
-      name: "Pins",
-      type: "team",
-      preview: "Stand like bowling pins. One team throws to knock you out — hit below the knee only.",
-      rules: [
-        "4 teams split into 2 simultaneous matchups — 1 team throws, 1 team are pins.",
-        "Both matchups run at the same time.",
-        "Pins must stand with both feet on the ground — like bowling pins. No moving.",
-        "Each thrower gets 1 throw. Must hit pins below the knee to knock them out.",
-        "A pin hit above the knee does NOT count — they stay in.",
-        "Knocked out pins leave the field.",
-        "The team with the most knockouts wins their matchup and advances to the final.",
-        "The 2 group winners face off in the final."
-      ]
-    },
-    {
-      number: "09",
-      name: "Duck Duck Goose",
-      type: "individual",
-      optional: true,
-      preview: "Optional — if time permits. Classic circle chase game.",
-      rules: [
-        "Everyone sits in a circle.",
-        "One player is IT and walks around the outside of the circle.",
-        "IT taps players on the head saying 'Duck' each time.",
-        "When IT says 'Goose', the tapped player jumps up and chases IT.",
-        "IT must run around the full circle and sit in Goose's spot before being tagged.",
-        "If IT is tagged, they are IT again. If IT makes it, Goose becomes the new IT.",
-        "[No points for optional game]" 
-      ]
-    }
-  ];
-
-  const grid = document.getElementById('events-grid');
-
-  events.forEach((ev, i) => {
-    const card = document.createElement('div');
-    card.className = 'event-card';
-    card.innerHTML = `
-      <div class="event-number">${ev.number}</div>
-      <div class="event-name">${ev.name}${ev.optional ? ' <span style="font-size:0.6em;color:var(--muted);font-family:\'DM Sans\',sans-serif;letter-spacing:0.1em;">OPTIONAL</span>' : ''}</div>
-      <div class="event-tag ${ev.type === 'team' ? 'team' : ''}">${ev.type === 'team' ? '👥 Team Event' : '🏃 Individual'}</div>
-      <div class="event-preview">${ev.preview}</div>
-      <div class="event-click-hint">View Rules</div>
-    `;
-    card.addEventListener('click', () => openModal(ev));
-    grid.appendChild(card);
-  });
-
-  // ── TUG OF WAR BRACKET ──
-  const teams = ['Red', 'Blue', 'Green', 'White'];
-  const teamColors = { Red:'#e63946', Blue:'#7ab5d4', Green:'#52b788', White:'#f1faee' };
-  let bracket = [];
-  let results = {};
-
-  function shuffle(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-
-  function generateBracket() {
-    const shuffled = shuffle(teams);
-    bracket = [
-      [shuffled[0], shuffled[1]],
-      [shuffled[2], shuffled[3]]
-    ];
-    results = {};
-    renderBracket();
-  }
-
-  function pickWinner(matchIdx, winner) {
-    results[matchIdx] = winner;
-    renderBracket();
-  }
-
-  function renderBracket() {
-    const container = document.getElementById('bracket-container');
-    let html = `<div class="bracket-rounds">`;
-
-    // Semis
-    html += `<div class="bracket-round"><div class="bracket-round-label">Semis</div>`;
-    bracket.forEach((match, i) => {
-      const winner = results[i];
-      html += `<div class="bracket-match">
-        <div class="bracket-team ${winner === match[0] ? 'winner' : winner ? 'loser' : ''}" style="--tc:${teamColors[match[0]]}" onclick="pickWinner(${i},'${match[0]}')">${match[0]}</div>
-        <div class="bracket-vs">vs</div>
-        <div class="bracket-team ${winner === match[1] ? 'winner' : winner ? 'loser' : ''}" style="--tc:${teamColors[match[1]]}" onclick="pickWinner(${i},'${match[1]}')">${match[1]}</div>
-        ${winner ? `<div class="bracket-winner-label">✓ ${winner} advances</div>` : `<div class="bracket-tap-hint">Tap winner</div>`}
-      </div>`;
-    });
-    html += `</div>`;
-
-    // Final
-    const w0 = results[0];
-    const w1 = results[1];
-    if (w0 && w1) {
-      const finalWinner = results['final'];
-      html += `<div class="bracket-round"><div class="bracket-round-label">Final</div>
-        <div class="bracket-match">
-          <div class="bracket-team ${finalWinner === w0 ? 'winner' : finalWinner ? 'loser' : ''}" style="--tc:${teamColors[w0]}" onclick="pickWinner('final','${w0}')">${w0}</div>
-          <div class="bracket-vs">vs</div>
-          <div class="bracket-team ${finalWinner === w1 ? 'winner' : finalWinner ? 'loser' : ''}" style="--tc:${teamColors[w1]}" onclick="pickWinner('final','${w1}')">${w1}</div>
-          ${finalWinner ? `<div class="bracket-champion">🏆 ${finalWinner} wins Tug of War!</div>` : `<div class="bracket-tap-hint">Tap winner</div>`}
-        </div>
-      </div>`;
-    }
-
-    html += `</div>`;
-    container.innerHTML = html;
-  }
-
-  // ── PINS BRACKET ──
-  let pinsGroups = [];
-  let pinsGroupWinners = {};
-  let pinsFinalResult = null;
-
-  function generatePinsBracket() {
-    const shuffled = shuffle(teams);
-    pinsGroups = [
-      [shuffled[0], shuffled[1]],
-      [shuffled[2], shuffled[3]]
-    ];
-    pinsGroupWinners = {};
-    pinsFinalResult = null;
-    renderPinsBracket();
-  }
-
-  function pinsPickGroupWinner(groupIdx, winner) {
-    pinsGroupWinners[groupIdx] = winner;
-    pinsFinalResult = null;
-    renderPinsBracket();
-  }
-
-  function pinsPickFinalWinner(winner) {
-    pinsFinalResult = winner;
-    renderPinsBracket();
-  }
-
-  function renderPinsBracket() {
-    const container = document.getElementById('pins-container');
-    if (!pinsGroups.length) { container.innerHTML = ''; return; }
-
-    let html = `<div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-start;">`;
-
-    pinsGroups.forEach((group, gi) => {
-      const winner = pinsGroupWinners[gi];
-      html += `<div class="bracket-round">
-        <div class="bracket-round-label">Group ${gi + 1} — All throw, pick winner</div>`;
-
-      group.forEach((team, ti) => {
-        const isWinner = winner === team;
-        const isLoser = winner && winner !== team;
-        html += `<div class="bracket-match" style="min-width:200px;">
-          <div class="bracket-team ${isWinner ? 'winner' : isLoser ? 'loser' : ''}"
-            style="--tc:${teamColors[team]}"
-            onclick="pinsPickGroupWinner(${gi},'${team}')">
-            ${team}
-          </div>
-          ${isWinner ? `<div class="bracket-winner-label">✓ ${team} wins Group ${gi + 1}</div>` : `<div class="bracket-tap-hint">Tap to pick winner</div>`}
-        </div>`;
-      });
-
-      html += `</div>`;
-    });
-
-    // Final
-    const w0 = pinsGroupWinners[0];
-    const w1 = pinsGroupWinners[1];
-    if (w0 && w1) {
-      html += `<div class="bracket-round"><div class="bracket-round-label">Final</div>
-        <div class="bracket-match" style="min-width:200px;">
-          <div class="bracket-team ${pinsFinalResult === w0 ? 'winner' : pinsFinalResult ? 'loser' : ''}" style="--tc:${teamColors[w0]}" onclick="pinsPickFinalWinner('${w0}')">${w0}</div>
-          <div class="bracket-vs">vs</div>
-          <div class="bracket-team ${pinsFinalResult === w1 ? 'winner' : pinsFinalResult ? 'loser' : ''}" style="--tc:${teamColors[w1]}" onclick="pinsPickFinalWinner('${w1}')">${w1}</div>
-          ${pinsFinalResult ? `<div class="bracket-champion">🏆 ${pinsFinalResult} wins Pins!</div>` : `<div class="bracket-tap-hint">Tap winner</div>`}
-        </div>
-      </div>`;
-    }
-
-    html += `</div>`;
-    container.innerHTML = html;
-  }
-
-  function openModal(ev) {
-    document.getElementById('modal-title').textContent = ev.name;
-    document.getElementById('modal-eyebrow').textContent = `Event ${ev.number}`;
-    document.getElementById('modal-tag-wrap').innerHTML =
-      `<div class="modal-tag ${ev.type === 'team' ? 'team' : ''}" style="margin-bottom:1.5rem">${ev.type === 'team' ? '👥 Team Event' : '🏃 Individual'}</div>`;
-    const rulesList = document.getElementById('modal-rules');
-    rulesList.innerHTML = ev.rules.map((r, i) =>
-      `<li><span class="rule-num">${i + 1}</span><span>${r}</span></li>`
-    ).join('');
-    document.getElementById('modal-overlay').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModalDirect() {
-    document.getElementById('modal-overlay').classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  function closeModal(e) {
-    if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
-  }
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModalDirect();
-  });
-</script>
 <!-- VIEW TOGGLE TOOLBAR -->
 <div class="view-toolbar" id="view-toolbar">
   <button class="view-btn active" id="btn-desktop" onclick="setView('desktop')">🖥 Desktop</button>
@@ -1211,65 +432,486 @@
 </div>
 
 <script>
-  function setView(mode) {
-    const body = document.body;
-    const btnDesktop = document.getElementById('btn-desktop');
-    const btnMobile = document.getElementById('btn-mobile');
+  function toggleSection(bodyId, btn) {
+    const body = document.getElementById(bodyId);
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+  }
 
-    if (mode === 'mobile') {
-      // Wrap body content in a mobile frame simulator
-      if (!document.getElementById('mobile-sim-wrapper')) {
-        const content = document.createElement('iframe');
-        content.src = window.location.href + '?sim=1';
-        content.id = 'mobile-sim-iframe';
+  function openMaps(e) {
+    e.preventDefault();
+    const addr = '3451+East+Barber+Valley+Drive,+Boise,+ID+83706';
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    window.open(isIOS ? `https://maps.apple.com/?q=${addr}` : `https://maps.google.com/?q=${addr}`, '_blank');
+  }
 
-        const frame = document.createElement('div');
-        frame.className = 'mobile-sim-frame';
-        frame.appendChild(content);
+  const events = [
+    { number:"01", name:"Dasher", type:"individual", preview:"100m sprint - men's and women's heats.", rules:["Two separate heats: one for men, one for women.","All runners start behind the starting line.","On the signal, sprint 100 meters to the finish line.","First false start = warning. Second false start = disqualification.","Winner earns points for their team."] },
+    { number:"02", name:"Caterpillar", type:"team", preview:"Build a balloon chain with your teammates and race.", rules:["2 teammates start at the start line with a balloon wedged between them (no hands allowed).","They run to the opposite end to pick up a 3rd teammate and a new balloon.","The chain of 3 runs to pick up a 4th teammate and another balloon.","The chain of 4 runs to pick up the 5th teammate and a final balloon.","The full chain of 5 races back to the finish line.","If any balloon drops at any point, the team is eliminated.","Fastest team to finish with the full chain intact wins."] },
+    { number:"03", name:"Tater Sac", type:"individual", preview:"100m potato sac race.", rules:["Each player steps into a potato sac and holds it up at the waist.","On the signal, hop 100 meters to the finish line.","No crawling, rolling, or dragging — must stay upright and hopping.","If you fall, get back up and keep going.","First player across the finish line wins.","Winner earns points for their team."] },
+    { number:"04", name:"Mellow Shuffle", type:"team", preview:"Spoon in mouth, marshmallow on top — lateral shuffle 100m without dropping.", rules:["All 5 teammates hold hands and stand behind the starting line.","Each player holds a spoon in their mouth with a marshmallow balanced on top.","On the signal, the team shuffles sideways (lateral shuffle) 100 meters to the finish line.","If any player's marshmallow falls, the entire team is eliminated.","No touching the spoon or marshmallow with hands at any time.","First team to cross the finish line with all marshmallows intact wins."] },
+    { number:"05", name:"Juggle Train", type:"individual", preview:"Add a juggle move each round — drop the ball and you're out.", rules:["All players stand in a circle.","One player starts with a juggle move — the ball MUST switch from one hand to the other.","The next player repeats the full sequence and adds their own move.","The ball must NEVER touch the floor.","If a player drops the ball or breaks the sequence, they are eliminated.","The person to the left of the eliminated player restarts the sequence.","Last player remaining wins and earns points for their team."] },
+    { number:"06", name:"Jenga Smash", type:"individual", preview:"Knock down the tower. Stop fielders from rebuilding it. Fewest blocks standing wins.", rules:["Set up a Jenga tower on a table. All other players stand as fielders.","The thrower stands 5 feet behind the table.","The thrower has 2 balls and throws to knock the tower down.","Once the tower falls, fielders attempt to rebuild it.","The thrower can throw balls at fielders to eliminate them.","Fielders may NOT block throws — only rebuild after the tower falls.","Lowest block count wins. Each player takes a turn as thrower.","Winner earns points for their team."] },
+    { number:"07", name:"Tug of War", type:"team", preview:"Pull the other team across the line. Live bracket below.", rules:["Two teams line up on opposite ends of a rope.","A marker sits at the center of the rope.","On the signal, both teams pull as hard as they can.","The team that pulls the center marker past their side's line wins the round.","Best of 3 pulls per matchup.","Format: Semis (2 matchups) → Final. Use the bracket randomizer below."] },
+    { number:"08", name:"Pins", type:"team", preview:"Stand like bowling pins. One team throws to knock you out — hit below the knee only.", rules:["4 teams split into 2 simultaneous matchups — 1 team throws, 1 team are pins.","Both matchups run at the same time.","Pins must stand with both feet on the ground — like bowling pins. No moving.","Each thrower gets 1 throw. Must hit pins below the knee to knock them out.","A pin hit above the knee does NOT count — they stay in.","The team with the most knockouts wins their matchup and advances to the final.","The 2 group winners face off in the final."] },
+    { number:"09", name:"Duck Duck Goose", type:"individual", optional:true, preview:"Optional — if time permits.", rules:["Everyone sits in a circle.","One player is IT and walks around the outside of the circle.","IT taps players on the head saying 'Duck' each time.","When IT says 'Goose', the tapped player jumps up and chases IT.","IT must run around the full circle and sit in Goose's spot before being tagged.","If IT is tagged, they are IT again. If IT makes it, Goose becomes the new IT.","[No points for optional game]"] }
+  ];
 
-        const wrapper = document.createElement('div');
-        wrapper.className = 'mobile-sim-wrapper';
-        wrapper.id = 'mobile-sim-wrapper';
-        wrapper.appendChild(frame);
+  const grid = document.getElementById('events-grid');
+  events.forEach(ev => {
+    const card = document.createElement('div');
+    card.className = 'event-card';
+    card.innerHTML = `
+      <div class="event-number">${ev.number}</div>
+      <div class="event-name">${ev.name}${ev.optional ? ' <span style="font-size:0.6em;color:var(--muted);font-family:\'DM Sans\',sans-serif;letter-spacing:0.1em;">OPTIONAL</span>' : ''}</div>
+      <div class="event-tag ${ev.type==='team'?'team':''}">${ev.type==='team'?'👥 Team Event':'🏃 Individual'}</div>
+      <div class="event-preview">${ev.preview}</div>
+      <div class="event-click-hint">View Rules</div>`;
+    card.addEventListener('click', () => openModal(ev));
+    grid.appendChild(card);
+  });
 
-        // Hide all direct body children except toolbar and wrapper
-        Array.from(body.children).forEach(el => {
-          if (!el.classList.contains('view-toolbar')) {
-            el.dataset.hiddenByView = '1';
-            el.style.display = 'none';
-          }
-        });
+  // Brackets
+  const teams = ['Red','Blue','Green','White'];
+  const teamColors = { Red:'#e63946', Blue:'#7ab5d4', Green:'#52b788', White:'#f1faee' };
+  let bracket=[], bracketResults={};
 
-        body.style.background = '#080808';
-        body.insertBefore(wrapper, document.getElementById('view-toolbar'));
-      }
-      btnMobile.classList.add('active');
-      btnDesktop.classList.remove('active');
-    } else {
-      // Restore desktop view
-      const wrapper = document.getElementById('mobile-sim-wrapper');
-      if (wrapper) wrapper.remove();
+  function shuffle(arr) {
+    const a=[...arr];
+    for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+    return a;
+  }
 
-      Array.from(body.children).forEach(el => {
-        if (el.dataset.hiddenByView) {
-          el.style.display = '';
-          delete el.dataset.hiddenByView;
-        }
+  function generateBracket() { const s=shuffle(teams); bracket=[[s[0],s[1]],[s[2],s[3]]]; bracketResults={}; renderBracket(); }
+  function pickWinner(idx,w) { bracketResults[idx]=w; renderBracket(); }
+
+  function renderBracket() {
+    const c=document.getElementById('bracket-container');
+    let h=`<div class="bracket-rounds"><div class="bracket-round"><div class="bracket-round-label">Semis</div>`;
+    bracket.forEach((m,i)=>{
+      const w=bracketResults[i];
+      h+=`<div class="bracket-match">
+        <div class="bracket-team ${w===m[0]?'winner':w?'loser':''}" style="--tc:${teamColors[m[0]]}" onclick="pickWinner(${i},'${m[0]}')">${m[0]}</div>
+        <div class="bracket-vs">vs</div>
+        <div class="bracket-team ${w===m[1]?'winner':w?'loser':''}" style="--tc:${teamColors[m[1]]}" onclick="pickWinner(${i},'${m[1]}')">${m[1]}</div>
+        ${w?`<div class="bracket-winner-label">✓ ${w} advances</div>`:`<div class="bracket-tap-hint">Tap winner</div>`}
+      </div>`;
+    });
+    h+=`</div>`;
+    const w0=bracketResults[0],w1=bracketResults[1];
+    if(w0&&w1){
+      const fw=bracketResults['final'];
+      h+=`<div class="bracket-round"><div class="bracket-round-label">Final</div><div class="bracket-match">
+        <div class="bracket-team ${fw===w0?'winner':fw?'loser':''}" style="--tc:${teamColors[w0]}" onclick="pickWinner('final','${w0}')">${w0}</div>
+        <div class="bracket-vs">vs</div>
+        <div class="bracket-team ${fw===w1?'winner':fw?'loser':''}" style="--tc:${teamColors[w1]}" onclick="pickWinner('final','${w1}')">${w1}</div>
+        ${fw?`<div class="bracket-champion">🏆 ${fw} wins Tug of War!</div>`:`<div class="bracket-tap-hint">Tap winner</div>`}
+      </div></div>`;
+    }
+    h+=`</div>`;
+    c.innerHTML=h;
+  }
+
+  let pinsGroups=[],pinsGroupWinners={},pinsFinalResult=null;
+  function generatePinsBracket(){const s=shuffle(teams);pinsGroups=[[s[0],s[1]],[s[2],s[3]]];pinsGroupWinners={};pinsFinalResult=null;renderPinsBracket();}
+  function pinsPickGroupWinner(gi,w){pinsGroupWinners[gi]=w;pinsFinalResult=null;renderPinsBracket();}
+  function pinsPickFinalWinner(w){pinsFinalResult=w;renderPinsBracket();}
+
+  function renderPinsBracket(){
+    const c=document.getElementById('pins-container');
+    if(!pinsGroups.length){c.innerHTML='';return;}
+    let h=`<div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-start;">`;
+    pinsGroups.forEach((group,gi)=>{
+      const w=pinsGroupWinners[gi];
+      h+=`<div class="bracket-round"><div class="bracket-round-label">Group ${gi+1} — Tap winner</div>`;
+      group.forEach(t=>{
+        const isW=w===t,isL=w&&w!==t;
+        h+=`<div class="bracket-match" style="min-width:200px;">
+          <div class="bracket-team ${isW?'winner':isL?'loser':''}" style="--tc:${teamColors[t]}" onclick="pinsPickGroupWinner(${gi},'${t}')">${t}</div>
+          ${isW?`<div class="bracket-winner-label">✓ ${t} wins Group ${gi+1}</div>`:`<div class="bracket-tap-hint">Tap to pick winner</div>`}
+        </div>`;
       });
+      h+=`</div>`;
+    });
+    const w0=pinsGroupWinners[0],w1=pinsGroupWinners[1];
+    if(w0&&w1){
+      h+=`<div class="bracket-round"><div class="bracket-round-label">Final</div><div class="bracket-match" style="min-width:200px;">
+        <div class="bracket-team ${pinsFinalResult===w0?'winner':pinsFinalResult?'loser':''}" style="--tc:${teamColors[w0]}" onclick="pinsPickFinalWinner('${w0}')">${w0}</div>
+        <div class="bracket-vs">vs</div>
+        <div class="bracket-team ${pinsFinalResult===w1?'winner':pinsFinalResult?'loser':''}" style="--tc:${teamColors[w1]}" onclick="pinsPickFinalWinner('${w1}')">${w1}</div>
+        ${pinsFinalResult?`<div class="bracket-champion">🏆 ${pinsFinalResult} wins Pins!</div>`:`<div class="bracket-tap-hint">Tap winner</div>`}
+      </div></div>`;
+    }
+    h+=`</div>`;
+    c.innerHTML=h;
+  }
 
-      body.style.background = '';
-      btnDesktop.classList.add('active');
-      btnMobile.classList.remove('active');
+  // Rules modal
+  function openModal(ev){
+    document.getElementById('modal-title').textContent=ev.name;
+    document.getElementById('modal-eyebrow').textContent=`Event ${ev.number}`;
+    document.getElementById('modal-tag-wrap').innerHTML=`<div class="modal-tag ${ev.type==='team'?'team':''}" style="margin-bottom:1.5rem">${ev.type==='team'?'👥 Team Event':'🏃 Individual'}</div>`;
+    document.getElementById('modal-rules').innerHTML=ev.rules.map((r,i)=>`<li><span class="rule-num">${i+1}</span><span>${r}</span></li>`).join('');
+    document.getElementById('modal-overlay').classList.add('active');
+    document.body.style.overflow='hidden';
+  }
+  function closeModalDirect(){document.getElementById('modal-overlay').classList.remove('active');document.body.style.overflow='';}
+  function closeModal(e){if(e.target===document.getElementById('modal-overlay'))closeModalDirect();}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModalDirect();closeScoreModal();}});
+
+  // View toggle
+  function setView(mode){
+    const body=document.body,btnD=document.getElementById('btn-desktop'),btnM=document.getElementById('btn-mobile');
+    if(mode==='mobile'){
+      if(!document.getElementById('mobile-sim-wrapper')){
+        const iframe=document.createElement('iframe');
+        iframe.src=window.location.href+'?sim=1';
+        iframe.id='mobile-sim-iframe';
+        const frame=document.createElement('div');
+        frame.className='mobile-sim-frame';
+        frame.appendChild(iframe);
+        const wrapper=document.createElement('div');
+        wrapper.className='mobile-sim-wrapper';
+        wrapper.id='mobile-sim-wrapper';
+        wrapper.appendChild(frame);
+        Array.from(body.children).forEach(el=>{if(!el.classList.contains('view-toolbar')){el.dataset.hiddenByView='1';el.style.display='none';}});
+        body.style.background='#080808';
+        body.insertBefore(wrapper,document.getElementById('view-toolbar'));
+      }
+      btnM.classList.add('active');btnD.classList.remove('active');
+    } else {
+      const w=document.getElementById('mobile-sim-wrapper');
+      if(w)w.remove();
+      Array.from(body.children).forEach(el=>{if(el.dataset.hiddenByView){el.style.display='';delete el.dataset.hiddenByView;}});
+      body.style.background='';
+      btnD.classList.add('active');btnM.classList.remove('active');
     }
   }
-
-  // If loaded inside the sim iframe, hide the toolbar
-  if (window.location.search.includes('sim=1')) {
-    window.addEventListener('DOMContentLoaded', () => {
-      const toolbar = document.getElementById('view-toolbar');
-      if (toolbar) toolbar.style.display = 'none';
-    });
+  if(window.location.search.includes('sim=1')){
+    window.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('view-toolbar');if(t)t.style.display='none';});
   }
 </script>
+
+<!-- FIREBASE SCOREBOARD -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, onValue, set, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAXJUIHYFWtwgw3NJ7w6HoPv-VidpXPNF8",
+    authDomain: "fieldday-dda6a.firebaseapp.com",
+    databaseURL: "https://fieldday-dda6a-default-rtdb.firebaseio.com",
+    projectId: "fieldday-dda6a",
+    storageBucket: "fieldday-dda6a.firebasestorage.app",
+    messagingSenderId: "2502569922571",
+    appId: "1:2502569922571:web:7ebeea14aafd2bc56fc84e"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const teamColors = { Red:'#e63946', Blue:'#7ab5d4', Green:'#52b788', White:'#f1faee' };
+  const teamNames = ['Red','Blue','Green','White'];
+
+  const playerTeam = {
+    Zach:'Red', Ashley:'Red', Abby:'Red', Coen:'Red', Anika:'Red',
+    Michael:'Blue', Kenzie:'Blue', Nick:'Blue', Leah:'Blue', Grant:'Blue',
+    Jimmy:'Green', Anita:'Green', Steven:'Green', Kayla:'Green', Devin:'Green',
+    Abhi:'White', Xavier:'White', Brianna:'White', Jack:'White', Lauren:'White'
+  };
+
+  const allPlayers = Object.keys(playerTeam);
+
+  // Scoring events: key, label, type (individual/team), gender filter
+  const scoreEvents = [
+    { key:'dasher_m',   label:'Dasher (Men)',    type:'individual', gender:'men' },
+    { key:'dasher_w',   label:'Dasher (Women)',  type:'individual', gender:'women' },
+    { key:'caterpillar',label:'Caterpillar',     type:'team' },
+    { key:'tater_sac',  label:'Tater Sac',       type:'individual' },
+    { key:'mellow',     label:'Mellow Shuffle',  type:'team' },
+    { key:'juggle',     label:'Juggle Train',    type:'individual' },
+    { key:'jenga',      label:'Jenga Smash',     type:'individual' },
+    { key:'tug',        label:'Tug of War',      type:'team' },
+    { key:'pins',       label:'Pins',            type:'team' },
+  ];
+
+  const pointsMap = { 1:3, 2:2, 3:1 };
+
+  // Gender groupings (approximate — adjust as needed)
+  const menPlayers = ['Zach','Michael','Jimmy','Abhi','Nick','Coen','Grant','Steven','Xavier','Jack','Devin'];
+  const womenPlayers = ['Ashley','Abby','Anika','Kenzie','Leah','Anita','Kayla','Brianna','Lauren'];
+
+  let scores = {}; // { eventKey: { 1: 'PlayerOrTeam', 2: '...', 3: '...' } }
+  let currentEventKey = null;
+  let pendingPlacements = {}; // { 1: 'X', 2: 'Y', 3: 'Z' }
+
+  onValue(ref(db, 'event_results'), snapshot => {
+    scores = snapshot.val() || {};
+    renderScoreboard();
+  });
+
+  function getTeamTotals() {
+    const totals = { Red:0, Blue:0, Green:0, White:0 };
+    scoreEvents.forEach(ev => {
+      const result = scores[ev.key];
+      if (!result) return;
+      [1,2,3].forEach(place => {
+        const winner = result[place];
+        if (!winner) return;
+        const pts = pointsMap[place] || 0;
+        if (ev.type === 'individual') {
+          const team = playerTeam[winner];
+          if (team) totals[team] += pts;
+        } else {
+          if (totals[winner] !== undefined) totals[winner] += pts;
+        }
+      });
+    });
+    return totals;
+  }
+
+  function getEventScore(eventKey, team) {
+    const result = scores[eventKey];
+    if (!result) return 0;
+    const ev = scoreEvents.find(e => e.key === eventKey);
+    let pts = 0;
+    [1,2,3].forEach(place => {
+      const winner = result[place];
+      if (!winner) return;
+      if (ev.type === 'individual') {
+        if (playerTeam[winner] === team) pts += pointsMap[place];
+      } else {
+        if (winner === team) pts += pointsMap[place];
+      }
+    });
+    return pts;
+  }
+
+  function getIndividualTotals() {
+    const pts = {};
+    scoreEvents.forEach(ev => {
+      if (ev.type !== 'individual') return;
+      const result = scores[ev.key];
+      if (!result) return;
+      [1,2,3].forEach(place => {
+        const player = result[place];
+        if (!player) return;
+        pts[player] = (pts[player] || 0) + (pointsMap[place] || 0);
+      });
+    });
+    return pts;
+  }
+
+  function renderScoreboard() {
+    const totals = getTeamTotals();
+    const sorted = [...teamNames].sort((a,b) => totals[b] - totals[a]);
+
+    // ── TEAM LEADERBOARD ──
+    const lb = document.getElementById('leaderboard-container');
+    lb.innerHTML = `<div class="leaderboard">` +
+      sorted.map((team, rank) => {
+        const pts = totals[team];
+        return `<div class="leaderboard-row ${rank===0&&pts>0?'first':''}">
+          <div class="leaderboard-rank">${rank===0&&pts>0?'🏆':rank+1}</div>
+          <div class="leaderboard-dot" style="background:${teamColors[team]}"></div>
+          <div class="leaderboard-team">${team}</div>
+          <div style="text-align:right;">
+            <div class="leaderboard-pts">${pts}</div>
+            <div class="leaderboard-pts-label">pts</div>
+          </div>
+        </div>`;
+      }).join('') + `</div>`;
+
+    // ── INDIVIDUAL LEADERBOARD ──
+    const indTotals = getIndividualTotals();
+    const sortedPlayers = Object.entries(indTotals)
+      .sort((a,b) => b[1] - a[1])
+      .filter(([,pts]) => pts > 0);
+
+    const ilb = document.getElementById('individual-leaderboard-container');
+    if (sortedPlayers.length === 0) {
+      ilb.innerHTML = `<div style="color:var(--muted);font-size:0.85rem;padding:0.75rem 0;">No individual results yet.</div>`;
+    } else {
+      const top3 = sortedPlayers.slice(0, 3);
+      const rest = sortedPlayers.slice(3);
+      const placeIcons = ['🥇','🥈','🥉'];
+
+      const renderRow = ([player, pts], rank) => {
+        const team = playerTeam[player];
+        return `<div class="ind-row ${rank===0?'first':''}">
+          <div class="ind-rank">${rank < 3 ? placeIcons[rank] : rank+1}</div>
+          <div class="ind-team-dot" style="background:${teamColors[team]}"></div>
+          <div class="ind-name">${player}<span class="ind-team-label">${team}</span></div>
+          <div class="ind-pts">${pts}<span style="font-size:0.65rem;color:var(--muted);font-family:'DM Sans',sans-serif;margin-left:2px;">pts</span></div>
+        </div>`;
+      };
+
+      let html = `<div class="ind-leaderboard">` + top3.map((p,i) => renderRow(p,i)).join('') + `</div>`;
+
+      if (rest.length > 0) {
+        html += `
+          <button class="ind-expand-btn" id="ind-expand-btn" onclick="toggleIndRest()">
+            <span class="ind-expand-chevron">▼</span>
+            <span id="ind-expand-label">Show ${rest.length} more</span>
+          </button>
+          <div class="ind-rest" id="ind-rest">
+            <div class="ind-leaderboard">` +
+              rest.map((p,i) => renderRow(p, i+3)).join('') +
+            `</div>
+          </div>`;
+      }
+
+      ilb.innerHTML = html;
+    }
+
+    // ── ROTATED TABLE ──
+    const container = document.getElementById('scoreboard-container');
+
+    let html = `<table class="rotated-table">
+      <thead><tr>
+        <th>Event</th>
+        ${sorted.map(team => `<th>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;">
+            <div style="width:10px;height:10px;border-radius:50%;background:${teamColors[team]};"></div>
+            ${team}
+          </div>
+        </th>`).join('')}
+      </tr></thead>
+      <tbody>`;
+
+    scoreEvents.forEach(ev => {
+      const result = scores[ev.key];
+      const hasData = result && (result[1] || result[2] || result[3]);
+      html += `<tr class="rot-event-btn" onclick="window.openScoreModal('${ev.key}')">
+        <td>
+          ${ev.label}
+          <span class="rot-entered">${hasData ? '✓ entered' : 'tap to enter'}</span>
+        </td>`;
+      sorted.forEach(team => {
+        const pts = getEventScore(ev.key, team);
+        html += `<td class="${pts>0?'rot-score':'rot-empty'}">${pts>0?pts:'—'}</td>`;
+      });
+      html += `</tr>`;
+    });
+
+    // Totals row
+    html += `<tr class="total-row">
+      <td>Total</td>
+      ${sorted.map(team => `<td class="rot-total">${totals[team]||'—'}</td>`).join('')}
+    </tr>`;
+
+    html += `</tbody></table>`;
+    container.innerHTML = html;
+  }
+
+  window.toggleIndRest = () => {
+    const rest = document.getElementById('ind-rest');
+    const btn = document.getElementById('ind-expand-btn');
+    const label = document.getElementById('ind-expand-label');
+    const isOpen = rest.classList.contains('open');
+    rest.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+    label.textContent = isOpen ? `Show more` : 'Show less';
+  };
+
+  window.openScoreModal = (eventKey) => {
+    const ev = scoreEvents.find(e => e.key === eventKey);
+    currentEventKey = eventKey;
+    pendingPlacements = {};
+
+    // Pre-fill existing data
+    const existing = scores[eventKey];
+    if (existing) {
+      [1,2,3].forEach(p => { if (existing[p]) pendingPlacements[p] = existing[p]; });
+    }
+
+    document.getElementById('score-modal-title').textContent = ev.label;
+    document.getElementById('score-modal-sub').textContent =
+      ev.type==='individual'
+        ? 'Select the player who finished 1st, 2nd, and 3rd. Points go to their team automatically.'
+        : 'Select the team that finished 1st, 2nd, and 3rd.';
+
+    renderScoreModalBody(ev);
+    document.getElementById('score-modal-overlay').classList.add('active');
+  };
+
+  function renderScoreModalBody(ev) {
+    const body = document.getElementById('score-modal-body');
+    const placeLabels = { 1:'🥇 1st Place', 2:'🥈 2nd Place', 3:'🥉 3rd Place' };
+    const ptLabels = { 1:'+3 pts', 2:'+2 pts', 3:'+1 pt' };
+
+    let html = '';
+    [1,2,3].forEach(place => {
+      const options = ev.type === 'individual'
+        ? (ev.gender === 'men' ? menPlayers : ev.gender === 'women' ? womenPlayers : allPlayers)
+        : teamNames;
+
+      html += `<div class="place-block">
+        <div class="place-label">${placeLabels[place]} <span>${ptLabels[place]}</span></div>
+        <div class="picker-grid">`;
+
+      options.forEach(opt => {
+        const isSelected = pendingPlacements[place] === opt;
+        const isUsedElsewhere = Object.entries(pendingPlacements).some(([p,v]) => v===opt && parseInt(p)!==place);
+        const teamDot = ev.type==='individual'
+          ? `<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${teamColors[playerTeam[opt]]};margin-right:4px;vertical-align:middle;"></span>`
+          : `<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${teamColors[opt]};margin-right:4px;vertical-align:middle;"></span>`;
+
+        html += `<button class="picker-btn ${isSelected?'selected':''} ${isUsedElsewhere?'disabled':''}"
+          onclick="window.selectPlacement(${place},'${opt}')"
+          ${isUsedElsewhere?'disabled':''}>
+          ${teamDot}${opt}
+          ${ev.type==='individual'?`<span style="font-size:0.68rem;opacity:0.6;display:block;margin-top:2px;">${playerTeam[opt]}</span>`:''}
+        </button>`;
+      });
+
+      html += `</div></div>`;
+    });
+
+    body.innerHTML = html;
+  }
+
+  window.selectPlacement = (place, value) => {
+    const ev = scoreEvents.find(e => e.key === currentEventKey);
+    // If already selected this place, deselect
+    if (pendingPlacements[place] === value) {
+      delete pendingPlacements[place];
+    } else {
+      pendingPlacements[place] = value;
+    }
+    renderScoreModalBody(ev);
+  };
+
+  window.saveScores = async () => {
+    if (!currentEventKey) return;
+    const toSave = {};
+    [1,2,3].forEach(p => { if (pendingPlacements[p]) toSave[p] = pendingPlacements[p]; });
+    await set(ref(db, `event_results/${currentEventKey}`), toSave);
+    closeScoreModal();
+  };
+
+  window.resetEvent = async () => {
+    if (!currentEventKey) return;
+    if (confirm('Clear all scores for this event?')) {
+      await remove(ref(db, `event_results/${currentEventKey}`));
+      closeScoreModal();
+    }
+  };
+
+  window.closeScoreModal = () => {
+    document.getElementById('score-modal-overlay').classList.remove('active');
+    currentEventKey = null;
+    pendingPlacements = {};
+  };
+
+  // Close score modal on backdrop click
+  document.getElementById('score-modal-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('score-modal-overlay')) window.closeScoreModal();
+  });
+
+  renderScoreboard();
+</script>
+
 </body>
 </html>
