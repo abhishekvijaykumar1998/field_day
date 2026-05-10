@@ -109,6 +109,7 @@
 
     /* SCOREBOARD */
     .scoreboard-wrap { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; overflow: hidden; }
+
     /* COLLAPSIBLE */
     .collapsible-header {
       width: 100%; background: none; border: none; cursor: pointer;
@@ -465,7 +466,25 @@
     { number:"03", name:"Tater Sac", type:"individual", preview:"100m potato sac race.", rules:["Each player steps into a potato sac and holds it up at the waist.","On the signal, hop 100 meters to the finish line.","No crawling, rolling, or dragging — must stay upright and hopping.","If you fall, get back up and keep going.","First player across the finish line wins.","Winner earns points for their team."] },
     { number:"04", name:"Mellow Shuffle", type:"team", preview:"Spoon in mouth, marshmallow on top — lateral shuffle 100m without dropping.", rules:["All 5 teammates hold hands and stand behind the starting line.","Each player holds a spoon in their mouth with a marshmallow balanced on top.","On the signal, the team shuffles sideways (lateral shuffle) 100 meters to the finish line.","If any player's marshmallow falls, the entire team is eliminated.","No touching the spoon or marshmallow with hands at any time.","First team to cross the finish line with all marshmallows intact wins."] },
     { number:"05", name:"Juggle Train", type:"individual", preview:"Add a juggle move each round — drop the ball and you're out.", rules:["All players stand in a circle.","One player starts with a juggle move — the ball MUST switch from one hand to the other.","The next player repeats the full sequence and adds their own move.","The ball must NEVER touch the floor.","If a player drops the ball or breaks the sequence, they are eliminated.","The person to the left of the eliminated player restarts the sequence.","Last player remaining wins and earns points for their team."] },
-    { number:"06", name:"Jenga Smash", type:"individual", preview:"Knock down the tower. Stop fielders from rebuilding it. Fewest blocks standing wins.", rules:["Set up a Jenga tower on a table. All other players stand as fielders.","The thrower stands 5 feet behind the table.","The thrower has 2 balls and throws to knock the tower down.","Once the tower falls, fielders attempt to rebuild it.","The thrower can throw balls at fielders to eliminate them.","Fielders may NOT block throws — only rebuild after the tower falls.","Lowest block count wins. Each player takes a turn as thrower.","Winner earns points for their team."] },
+    {
+      number:"06", name:"Jenga Smash", type:"team",
+      preview:"4 towers, 4 throwers, 20 foam balls — protect your tower, destroy theirs.",
+      rules:[
+        "Set up 2 tables in parallel. 2 teams per table. Each team builds a tower of 27 blocks, max of two blocks per level",
+        "Each team picks 1 thrower. The remaining 4 teammates are fielders standing around their own tower.",
+        "Each thrower is handed 5 foam balls at the start and stand in the middle. All 4 throwers throw simultaneously.",
+        "Throwers can aim at ANY tower — including accidentally their own!",
+        "When a tower is struck, fielders attempt to catch the falling blocks. Any blocks that fall on floor cannot be re-built.", 
+        "As soon as the tower falls, fielders count out down form 10 while rebuilding with surviving blocks. Max 2 blocks per level.",
+        "The thrower must wait until fielders finish counting to 10 before throwing again.",
+        "After the 10 second count ends, any blocks that self-collapse must be dropped to the floor and are permanently eliminated.",
+        "Fielders cannot touch or interfere with any other team's tower.",
+        "Once a thrower uses all 5 balls they step back. No picking up or rethrowing loose balls.",
+        "After all 5 balls are thrown, count the blocks remaining on each tower.",
+        "Team with the most blocks standing wins.",
+        "Tiebreaker: one sudden death throw each — closest to knocking a block off wins."
+      ]
+    },
     { number:"07", name:"Tug of War", type:"team", preview:"Pull the other team across the line. Live bracket below.", rules:["Two teams line up on opposite ends of a rope.","A marker sits at the center of the rope.","On the signal, both teams pull as hard as they can.","The team that pulls the center marker past their side's line wins the round.","Best of 3 pulls per matchup.","Format: Semis (2 matchups) → Final. Use the bracket randomizer below."] },
     { number:"08", name:"Pins", type:"team", preview:"Stand like bowling pins. One team throws to knock you out — hit below the knee only.", rules:["4 teams split into 2 simultaneous matchups — 1 team throws, 1 team are pins.","Both matchups run at the same time.","Pins must stand with both feet on the ground — like bowling pins. No moving.","Each thrower gets 1 throw. Must hit pins below the knee to knock them out.","A pin hit above the knee does NOT count — they stay in.","The team with the most knockouts wins their matchup and advances to the final.","The 2 group winners face off in the final."] },
     { number:"09", name:"Duck Duck Goose", type:"individual", optional:true, preview:"Optional — if time permits.", rules:["Everyone sits in a circle.","One player is IT and walks around the outside of the circle.","IT taps players on the head saying 'Duck' each time.","When IT says 'Goose', the tapped player jumps up and chases IT.","IT must run around the full circle and sit in Goose's spot before being tagged.","If IT is tagged, they are IT again. If IT makes it, Goose becomes the new IT.","[No points for optional game]"] }
@@ -636,28 +655,28 @@
 
   const allPlayers = Object.keys(playerTeam);
 
-  // Scoring events: key, label, type (individual/team), gender filter
+  // Scoring events — Jenga is now type:'team'
   const scoreEvents = [
-    { key:'dasher_m',   label:'Dasher (Men)',    type:'individual', gender:'men' },
-    { key:'dasher_w',   label:'Dasher (Women)',  type:'individual', gender:'women' },
-    { key:'caterpillar',label:'Caterpillar',     type:'team' },
-    { key:'tater_sac',  label:'Tater Sac',       type:'individual' },
-    { key:'mellow',     label:'Mellow Shuffle',  type:'team' },
-    { key:'juggle',     label:'Juggle Train',    type:'individual' },
-    { key:'jenga',      label:'Jenga Smash',     type:'individual' },
-    { key:'tug',        label:'Tug of War',      type:'team' },
-    { key:'pins',       label:'Pins',            type:'team' },
+    { key:'dasher_m',    label:'Dasher (Men)',   type:'individual', gender:'men' },
+    { key:'dasher_w',    label:'Dasher (Women)', type:'individual', gender:'women' },
+    { key:'caterpillar', label:'Caterpillar',    type:'team' },
+    { key:'tater_sac',   label:'Tater Sac',      type:'individual' },
+    { key:'mellow',      label:'Mellow Shuffle', type:'team' },
+    { key:'juggle',      label:'Juggle Train',   type:'individual' },
+    { key:'jenga',       label:'Jenga Smash',    type:'team' },
+    { key:'tug',         label:'Tug of War',     type:'team' },
+    { key:'pins',        label:'Pins',           type:'team' },
   ];
 
   const pointsMap = { 1:3, 2:2, 3:1 };
 
-  // Gender groupings (approximate — adjust as needed)
+  // Gender groupings
   const menPlayers = ['Zach','Michael','Jimmy','Abhi','Nick','Coen','Grant','Steven','Xavier','Jack','Devin'];
   const womenPlayers = ['Ashley','Abby','Anika','Kenzie','Leah','Anita','Kayla','Brianna','Lauren'];
 
-  let scores = {}; // { eventKey: { 1: 'PlayerOrTeam', 2: '...', 3: '...' } }
+  let scores = {};
   let currentEventKey = null;
-  let pendingPlacements = {}; // { 1: 'X', 2: 'Y', 3: 'Z' }
+  let pendingPlacements = {};
 
   onValue(ref(db, 'event_results'), snapshot => {
     scores = snapshot.val() || {};
@@ -808,7 +827,6 @@
       html += `</tr>`;
     });
 
-    // Totals row
     html += `<tr class="total-row">
       <td>Total</td>
       ${sorted.map(team => `<td class="rot-total">${totals[team]||'—'}</td>`).join('')}
@@ -833,7 +851,6 @@
     currentEventKey = eventKey;
     pendingPlacements = {};
 
-    // Pre-fill existing data
     const existing = scores[eventKey];
     if (existing) {
       [1,2,3].forEach(p => { if (existing[p]) pendingPlacements[p] = existing[p]; });
@@ -887,7 +904,6 @@
 
   window.selectPlacement = (place, value) => {
     const ev = scoreEvents.find(e => e.key === currentEventKey);
-    // If already selected this place, deselect
     if (pendingPlacements[place] === value) {
       delete pendingPlacements[place];
     } else {
