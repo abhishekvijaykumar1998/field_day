@@ -323,7 +323,7 @@
     <div class="team-card">
       <div class="team-color-bar" style="background:#e63946;"></div>
       <div class="team-name" style="color:#e63946;">Red</div>
-      <ul class="team-members"><li>Zach</li><li>Ashley</li><li>Abby</li><li>Coen</li><li>Anika</li></ul>
+      <ul class="team-members"><li>Placid</li><li>Ashley</li><li>Abby</li><li>Coen</li><li>Anika</li></ul>
     </div>
     <div class="team-card">
       <div class="team-color-bar" style="background:#457b9d;"></div>
@@ -470,13 +470,13 @@
       number:"06", name:"Jenga Smash", type:"team",
       preview:"4 towers, 4 throwers, 20 foam balls — protect your tower, destroy theirs.",
       rules:[
-        "Set up 2 tables in parallel. 2 teams per table. Each team builds a tower of 27 blocks, max of two blocks per level",
+        "Set up 4 tables in a square — one per team. Each team builds a tower of 26 blocks, stacked 2 blocks per level (13 levels tall).",
         "Each team picks 1 thrower. The remaining 4 teammates are fielders standing around their own tower.",
-        "Each thrower is handed 5 foam balls at the start and stand in the middle. All 4 throwers throw simultaneously.",
+        "Each thrower is handed 5 foam balls at the start. All 4 throwers throw simultaneously.",
         "Throwers can aim at ANY tower — including accidentally their own!",
-        "When a tower is struck, fielders attempt to catch the falling blocks. Any blocks that fall on floor cannot be re-built.", 
-        "As soon as the tower falls, fielders count out down form 10 while rebuilding with surviving blocks. Max 2 blocks per level.",
+        "When a tower is struck, fielders immediately count out loud to 10 while rebuilding with surviving blocks. Max 2 blocks per level.",
         "The thrower must wait until fielders finish counting to 10 before throwing again.",
+        "Fielders may only rebuild using blocks caught before hitting the floor — floor blocks are permanently eliminated.",
         "After the 10 second count ends, any blocks that self-collapse must be dropped to the floor and are permanently eliminated.",
         "Fielders cannot touch or interfere with any other team's tower.",
         "Once a thrower uses all 5 balls they step back. No picking up or rethrowing loose balls.",
@@ -647,7 +647,7 @@
   const teamNames = ['Red','Blue','Green','White'];
 
   const playerTeam = {
-    Zach:'Red', Ashley:'Red', Abby:'Red', Coen:'Red', Anika:'Red',
+    Placid:'Red', Ashley:'Red', Abby:'Red', Coen:'Red', Anika:'Red',
     Michael:'Blue', Kenzie:'Blue', Nick:'Blue', Leah:'Blue', Grant:'Blue',
     Jimmy:'Green', Anita:'Green', Steven:'Green', Kayla:'Green', Devin:'Green',
     Abhi:'White', Xavier:'White', Brianna:'White', Jack:'White', Lauren:'White'
@@ -671,7 +671,7 @@
   const pointsMap = { 1:3, 2:2, 3:1 };
 
   // Gender groupings
-  const menPlayers = ['Zach','Michael','Jimmy','Abhi','Nick','Coen','Grant','Steven','Xavier','Jack','Devin'];
+  const menPlayers = ['Placid','Michael','Jimmy','Abhi','Nick','Coen','Grant','Steven','Xavier','Jack','Devin'];
   const womenPlayers = ['Ashley','Abby','Anika','Kenzie','Leah','Anita','Kayla','Brianna','Lauren'];
 
   let scores = {};
